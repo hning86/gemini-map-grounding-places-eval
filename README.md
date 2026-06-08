@@ -18,7 +18,7 @@ For the complete place-by-place validation registries, see the [Full Evaluation 
 ### 💡 Key Technical Insights
 
 * **`gemini-3.1-flash-lite` Grounding Payloads**: 
-  Even though the stable `gemini-3.1-flash-lite` model reports a `0.00% Grounded Rate` (because the Vertex AI response payload does not include any `grounding_chunks` metadata under structured JSON output schemas), it **does query Google Maps internally** and replies with **real, valid Place IDs** (yielding a high `96.15% Verification Rate`). This indicates that the search grounding tool execution operates correctly internally, but the grounding metadata mapping payload is not returned by the API for the stable model version under structured constraints.
+  Even though the stable `gemini-3.1-flash-lite` model reports a `0.00% Grounded Rate` (because the Vertex AI response payload does not include any `grounding_chunks` metadata under structured JSON output schemas), it **does query Google Maps internally** and replies with **real, valid CIDs** (yielding a high `96.15% Verification Rate`). This indicates that the search grounding tool execution operates correctly internally, but the grounding metadata mapping payload is not returned by the API for the stable model version under structured constraints.
 
 * **Place ID vs. CID Output Paradox**:
   * **The Schema Conflict**: Although the JSON output schema strictly requests a `PlaceId` (which are alphanumeric strings starting with `ChI...`), the model actually outputs 64-bit numeric **CIDs** (Customer IDs) the supermajority of the time. 
