@@ -1,0 +1,23 @@
+# Environments
+.venv/
+env/
+venv/
+ENV/
+
+# Sensitive files
+.env
+
+# Python caching
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Output directories
+results/
+reports/
+
+# IDE files
+.idea/
+.vscode/
+.DS_Store

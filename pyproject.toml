@@ -1,0 +1,18 @@
+[project]
+name = "google-map-grounding-places-validation"
+version = "0.1.0"
+description = "A 2-stage Point-of-Interest discovery and verification evaluation framework using Google Maps Grounding and Google Places API."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "google-cloud-aiplatform>=1.153.1",
+    "google-genai>=0.1.1",
+    "pandas>=2.2.0",
+    "python-dotenv>=1.2.2",
+    "rapidfuzz>=3.14.5",
+    "tabulate>=0.10.0",
+    "tqdm>=4.67.3",
+]
+
+[[tool.uv.index]]
+url = "https://pypi.org/simple"
