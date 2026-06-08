@@ -20,6 +20,11 @@ For the complete place-by-place validation registries, see the [Full Evaluation 
 * **`gemini-3.1-flash-lite` Grounding Payloads**: 
   Even though the stable `gemini-3.1-flash-lite` model reports a `0.00% Grounded Rate` (because the Vertex AI response payload does not include any `grounding_chunks` metadata under structured JSON output schemas), it **does query Google Maps internally** and replies with **real, valid Place IDs** (yielding a high `96.15% Verification Rate`). This indicates that the search grounding tool execution operates correctly internally, but the grounding metadata mapping payload is not returned by the API for the stable model version under structured constraints.
 
+* **Place ID vs. CID Output Paradox**:
+  * **The Schema Conflict**: Although the JSON output schema strictly requests a `PlaceId` (which are alphanumeric strings starting with `ChI...`), the model actually outputs 64-bit numeric **CIDs** (Customer IDs) the supermajority of the time. 
+  * **Valid CIDs**: These returned numeric CIDs are **highly valid** and resolve successfully to the correct POIs via the legacy Details endpoint (which is why our verifier dynamically routes them).
+  * **Invalid PlaceIDs**: On the rare occasions the model attempts to output a standard alphanumeric **Place ID**, it is **almost always invalid** (returning `NOT_FOUND` from the Places API). This happens because Google Maps grounding search results only expose CIDs within their URIs. Lacking the real Place ID in its context, the model is forced to hallucinate a realistic-looking alphanumeric string.
+
 ---
 
 ## 🗺️ Process Workflow
