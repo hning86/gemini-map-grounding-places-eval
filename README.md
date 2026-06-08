@@ -4,6 +4,19 @@ This project is a 2-stage Point-of-Interest (POI) discovery and verification eva
 
 ---
 
+## 📈 Benchmark Results
+
+Here is the consolidated metrics summary from the latest full evaluation run:
+
+| Model | Runs | Avg Gemini Call Latency (s) | Avg Places API Call Latency (s) | Grounded Rate (%) | Total Places | Verified Places | Verification Rate (%) |
+|---|---|---|---|---|---|---|---|
+| **gemini-3.1-flash-lite** | 25 | 5.39s | 0.57s | 0.00% | 130 | 125 | 96.15% |
+| **gemini-3.1-flash-lite-preview** | 24 | 5.40s | 0.56s | 100.00% | 122 | 107 | 87.70% |
+
+For the complete place-by-place validation registries, see the [Full Evaluation Report](reports/full_evaluation_report.md).
+
+---
+
 ## 🗺️ Process Workflow
 
 ```mermaid
@@ -24,8 +37,8 @@ The framework is structured as follows:
 ├── main.py                # Pipeline entry point & orchestrator
 ├── util/
 │   ├── __init__.py        # Utility package marker
-│   ├── evaluator.py       # Stage A: Vertex AI Gemini caller with Maps Grounding
-│   ├── verifier.py        # Stage B: Live Places API & CID verification routing
+│   ├── evaluator.py       # Vertex AI Gemini caller with Maps Grounding
+│   ├── verifier.py        # Live Places API & CID verification routing
 │   └── analyzer.py        # Metrics aggregator & Markdown report generator
 ├── reports/               # Directory for generated reports (e.g., full_evaluation_report.md)
 └── results/               # Directory for raw JSONL evaluation outputs
@@ -37,11 +50,11 @@ The CLI orchestrator for running evaluations. It automatically:
 - Executes Stage A (Gemini generation) and Stage B (Places API validation).
 - Triggers the statistical parser to compile markdown reports.
 
-### 2. `util/evaluator.py` 
+### 2. `util/evaluator.py`
 - Prompts Gemini models using Vertex AI with Google Maps Grounding enabled.
 - Enforces a strict JSON output schema containing a `PlaceId` field.
 
-### 3. `util/verifier.py` 
+### 3. `util/verifier.py`
 - Live verification of generated IDs.
 - **Dynamic Routing**: Parses the generated ID.
   - If the ID is an alphanumeric **Place ID** (e.g., `ChIJ...`), it queries the **New Google Places API (v1)** Details endpoint.
@@ -73,19 +86,6 @@ The framework is configured with a default set of 5 diverse Point-of-Interest (P
 3. `"Top art museums and galleries in Paris"`
 4. `"Hidden specialty coffee shops in Tokyo"`
 5. `"Best rooftop bars with a view in Bangkok"`
-
----
-
-## 📈 Benchmark Results
-
-Here is the consolidated metrics summary from the latest full evaluation run:
-
-| Model                             |   Runs | Avg Gemini Call Latency (s)   | Avg Places API Call Latency (s)   | Grounded Rate (%)   |   Total Places |   Verified Places | Verification Rate (%)   |
-|-----------------------------------|--------|-----------------------|---------------------------|---------------------|----------------|-------------------|-------------------------|
-| **gemini-3.1-flash-lite**         |     25 | 5.39s                 | 0.57s                     | 0.00%               |            130 |               125 | 96.15%                  |
-| **gemini-3.1-flash-lite-preview** |     24 | 5.40s                 | 0.56s                     | 100.00%             |            122 |               107 | 87.70%                  |
-
-For the complete place-by-place validation registries, see the [Full Evaluation Report](reports/full_evaluation_report.md).
 
 ---
 
