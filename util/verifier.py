@@ -164,6 +164,9 @@ def verify_places(places, api_key, max_workers=5):
             if result["cid_resolved_place_id"] and result["generated_place_id"]:
                 if result["cid_resolved_place_id"] == result["generated_place_id"]:
                     result["matching_ids"] = True
+                else:
+                    # Generated PlaceID doesn't match canonical PlaceID from CID - count as PlaceID failure
+                    result["verified_place_id"] = False
             result["verified"] = True
         elif result["verified_cid"]:
             result["verified"] = True
