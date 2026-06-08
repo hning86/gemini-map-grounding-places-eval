@@ -39,6 +39,7 @@ SCHEMA = {
                 "type": "object",
                 "properties": {
                     "PlaceId":        {"type": "string"},
+                    "CID":            {"type": "string"},
                     "title":          {"type": "string"},
                     "rating":         {"type": "string"},
                     "review_count":   {"type": "string"},
@@ -48,7 +49,7 @@ SCHEMA = {
                     "entry_price":    {"type": "string"},
                     "address":        {"type": "string"}
                 },
-                "required": ["PlaceId", "title", "rating", "review_count", "text"],
+                "required": ["PlaceId", "CID", "title", "rating", "review_count", "text"],
                 "additionalProperties": False
             }
         }

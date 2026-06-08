@@ -28,7 +28,8 @@ def query_place_details(place_id, api_key):
                         "status": "OK",
                         "result": {
                             "name": res_data["result"].get("name", ""),
-                            "formatted_address": res_data["result"].get("formatted_address", "")
+                            "formatted_address": res_data["result"].get("formatted_address", ""),
+                            "place_id": res_data["result"].get("place_id", "")
                         }
                     }
                     return mapped_result, latency
@@ -57,7 +58,8 @@ def query_place_details(place_id, api_key):
                     "status": "OK",
                     "result": {
                         "name": res_data.get("displayName", {}).get("text", ""),
-                        "formatted_address": res_data.get("formattedAddress", "")
+                        "formatted_address": res_data.get("formattedAddress", ""),
+                        "place_id": res_data.get("id", "")
                     }
                 }
                 return mapped_result, latency
@@ -86,49 +88,89 @@ def query_place_details(place_id, api_key):
             return {"status": "ERROR", "error_message": str(e)}, latency
 
 def verify_places(places, api_key, max_workers=5):
-    """Run Stage B verification for a list of places in parallel."""
+    """Run Stage B verification for a list of places in parallel, verifying both PlaceId and CID."""
     results = []
     
     def verify_single_place(place):
         title = place.get("title", "").strip()
         generated_pid = place.get("PlaceId", "").strip()
+        generated_cid = place.get("CID", "").strip()
         
         result = {
             "title": title,
             "generated_place_id": generated_pid,
-            "status": "MISSING_ID",
-            "fuzzy_score": 0.0,
-            "retrieved_name": None,
-            "retrieved_address": None,
+            "generated_cid": generated_cid,
+            "status_place_id": "MISSING",
+            "status_cid": "MISSING",
+            "fuzzy_score_place_id": 0.0,
+            "fuzzy_score_cid": 0.0,
+            "retrieved_name_place_id": None,
+            "retrieved_name_cid": None,
+            "retrieved_address_place_id": None,
+            "retrieved_address_cid": None,
+            "cid_resolved_place_id": None,
             "latency": 0.0,
-            "verified": False
+            "verified_place_id": False,
+            "verified_cid": False,
+            "verified": False,
+            "matching_ids": False
         }
         
-        if not generated_pid:
-            return result
-            
-        res_data, latency = query_place_details(generated_pid, api_key)
-        result["latency"] = latency
-        status = res_data.get("status", "ERROR")
-        result["status"] = status
+        start_time = time.time()
         
-        if status == "OK" and "result" in res_data:
-            retrieved_name = res_data["result"].get("name", "")
-            retrieved_address = res_data["result"].get("formatted_address", "")
-            result["retrieved_name"] = retrieved_name
-            result["retrieved_address"] = retrieved_address
-            
-            # Fuzzy match generated title vs. retrieved name
-            score = fuzz.token_sort_ratio(title.lower(), retrieved_name.lower())
-            result["fuzzy_score"] = score
-            
-            # A place is verified if Places API returns OK and fuzzy name match is >= 85%
-            if score >= 85.0:
-                result["verified"] = True
-        elif status == "NOT_FOUND":
-            result["error_message"] = "The provided Place ID is invalid or stale according to Places API."
-        elif "error_message" in res_data:
-            result["error_message"] = res_data["error_message"]
+        # 1. Verify PlaceID
+        if generated_pid:
+            res_pid, lat_pid = query_place_details(generated_pid, api_key)
+            status_pid = res_pid.get("status", "ERROR")
+            result["status_place_id"] = status_pid
+            if status_pid == "OK" and "result" in res_pid:
+                retrieved_name = res_pid["result"].get("name", "")
+                result["retrieved_name_place_id"] = retrieved_name
+                result["retrieved_address_place_id"] = res_pid["result"].get("formatted_address", "")
+                
+                score = fuzz.token_sort_ratio(title.lower(), retrieved_name.lower())
+                result["fuzzy_score_place_id"] = score
+                if score >= 85.0:
+                    result["verified_place_id"] = True
+            elif status_pid == "NOT_FOUND":
+                result["error_message_place_id"] = "Invalid or stale Place ID."
+            elif "error_message" in res_pid:
+                result["error_message_place_id"] = res_pid["error_message"]
+        
+        # 2. Verify CID
+        if generated_cid:
+            res_cid, lat_cid = query_place_details(generated_cid, api_key)
+            status_cid = res_cid.get("status", "ERROR")
+            result["status_cid"] = status_cid
+            if status_cid == "OK" and "result" in res_cid:
+                retrieved_name = res_cid["result"].get("name", "")
+                result["retrieved_name_cid"] = retrieved_name
+                result["retrieved_address_cid"] = res_cid["result"].get("formatted_address", "")
+                result["cid_resolved_place_id"] = res_cid["result"].get("place_id", "")
+                
+                score = fuzz.token_sort_ratio(title.lower(), retrieved_name.lower())
+                result["fuzzy_score_cid"] = score
+                if score >= 85.0:
+                    result["verified_cid"] = True
+            elif status_cid == "NOT_FOUND":
+                result["error_message_cid"] = "Invalid or stale CID."
+            elif "error_message" in res_cid:
+                result["error_message_cid"] = res_cid["error_message"]
+                
+        result["latency"] = time.time() - start_time
+        
+        # 3. Check matching and overall verification
+        if result["verified_place_id"] and result["verified_cid"]:
+            if result["cid_resolved_place_id"] and result["generated_place_id"]:
+                if result["cid_resolved_place_id"] == result["generated_place_id"]:
+                    result["matching_ids"] = True
+                    result["verified"] = True
+        elif result["verified_cid"] and not generated_pid:
+            # If schema didn't produce a PlaceID but CID is valid
+            result["verified"] = True
+        elif result["verified_place_id"] and not generated_cid:
+            # If schema didn't produce a CID but PlaceID is valid
+            result["verified"] = True
             
         return result
 

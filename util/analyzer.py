@@ -55,15 +55,23 @@ def analyze_results(input_file, output_report):
         for p in places_verified:
             # Try to match with a grounding chunk in the same run
             generated_pid = p.get("generated_place_id", "").strip()
+            generated_cid = p.get("generated_cid", "").strip()
             grounding_name = None
-            if generated_pid:
-                for chunk in row.get("grounding_chunks", []):
-                    chunk_pid = chunk.get("place_id", "")
-                    chunk_uri = chunk.get("uri", "")
+            
+            for chunk in row.get("grounding_chunks", []):
+                chunk_pid = chunk.get("place_id", "")
+                chunk_uri = chunk.get("uri", "")
+                # Match by Place ID
+                if generated_pid:
                     if chunk_pid and (chunk_pid == generated_pid or chunk_pid.endswith("/" + generated_pid)):
                         grounding_name = chunk.get("title")
                         break
                     if chunk_uri and generated_pid in chunk_uri:
+                        grounding_name = chunk.get("title")
+                        break
+                # Match by CID
+                if generated_cid:
+                    if chunk_uri and generated_cid in chunk_uri:
                         grounding_name = chunk.get("title")
                         break
 
@@ -74,10 +82,17 @@ def analyze_results(input_file, output_report):
                 "iteration": row["iteration"],
                 "title": p.get("title"),
                 "generated_place_id": p.get("generated_place_id"),
-                "retrieved_name": p.get("retrieved_name"),
+                "generated_cid": p.get("generated_cid"),
+                "status_place_id": p.get("status_place_id"),
+                "status_cid": p.get("status_cid"),
+                "retrieved_name_place_id": p.get("retrieved_name_place_id"),
+                "retrieved_name_cid": p.get("retrieved_name_cid"),
                 "grounding_name": grounding_name,
-                "status": p.get("status"),
-                "fuzzy_score": p.get("fuzzy_score", 0.0),
+                "verified_place_id": p.get("verified_place_id", False),
+                "verified_cid": p.get("verified_cid", False),
+                "matching_ids": p.get("matching_ids", False),
+                "fuzzy_score_place_id": p.get("fuzzy_score_place_id", 0.0),
+                "fuzzy_score_cid": p.get("fuzzy_score_cid", 0.0),
                 "verified": p.get("verified", False),
                 "latency_b_individual": p.get("latency", 0.0)
             })
@@ -95,17 +110,17 @@ def analyze_results(input_file, output_report):
     
     # Summarize place-level metrics if we have place data
     if not df_places.empty:
-        df_places["is_valid_id"] = df_places["status"] == "OK"
-        df_places["is_invalid_id"] = df_places["status"].isin(["NOT_FOUND", "INVALID_REQUEST"])
-        df_places["is_other_error"] = ~df_places["status"].isin(["OK", "NOT_FOUND", "INVALID_REQUEST"])
+        df_places["is_valid_pid"] = df_places["status_place_id"] == "OK"
+        df_places["is_valid_cid"] = df_places["status_cid"] == "OK"
         
         place_summary = df_places.groupby(["model", "effort"]).agg(
             total_places=("title", "count"),
             verified_places=("verified", "sum"),
-            valid_id_places=("is_valid_id", "sum"),
-            invalid_id_places=("is_invalid_id", "sum"),
-            other_error_places=("is_other_error", "sum"),
-            avg_fuzzy_score=("fuzzy_score", "mean")
+            valid_pids=("is_valid_pid", "sum"),
+            valid_cids=("is_valid_cid", "sum"),
+            matching_ids_sum=("matching_ids", "sum"),
+            avg_fuzzy_pid=("fuzzy_score_place_id", "mean"),
+            avg_fuzzy_cid=("fuzzy_score_cid", "mean")
         ).reset_index()
         
         # Merge run and place summaries
@@ -113,16 +128,16 @@ def analyze_results(input_file, output_report):
         
         # Calculate rates
         summary["verification_rate"] = (summary["verified_places"] / summary["total_places"]) * 100
-        summary["hallucination_rate"] = (1 - (summary["verified_places"] / summary["total_places"])) * 100
-        summary["invalid_id_rate"] = (summary["invalid_id_places"] / summary["total_places"]) * 100
     else:
         summary = run_summary
         summary["total_places"] = 0
         summary["verified_places"] = 0
-        summary["avg_fuzzy_score"] = 0.0
+        summary["valid_pids"] = 0
+        summary["valid_cids"] = 0
+        summary["matching_ids_sum"] = 0
+        summary["avg_fuzzy_pid"] = 0.0
+        summary["avg_fuzzy_cid"] = 0.0
         summary["verification_rate"] = 0.0
-        summary["hallucination_rate"] = 100.0
-        summary["invalid_id_rate"] = 100.0
         
     summary["grounded_rate"] = summary["grounded_rate"] * 100
     
@@ -137,8 +152,8 @@ def analyze_results(input_file, output_report):
     with open(output_report, "w") as f:
         f.write("# Gemini 2-Stage Grounding & Places API Verification Report\n\n")
         f.write("This report details the evaluation metrics and verification results from the 2-stage Point-of-Interest (POI) discovery framework.\n")
-        f.write("- **Stage A**: Gemini generation with structured output schema (including PlaceID) and Google Maps grounding enabled.\n")
-        f.write("- **Stage B**: Live Verification of the generated PlaceID via the Google Places API (Details endpoint), including fuzzy name matching.\n\n")
+        f.write("- **Stage A**: Gemini generation with structured output schema (requiring both PlaceID and CID) and Google Maps grounding enabled.\n")
+        f.write("- **Stage B**: Live Verification of both the generated PlaceID (via Places API v1) and CID (via legacy API) including fuzzy name matching and cross-referencing.\n\n")
         
         f.write("## 📊 Consolidated Metrics Summary\n\n")
         
@@ -166,47 +181,70 @@ def analyze_results(input_file, output_report):
         
         f.write("## 🔍 Place-Level Error & Matching Analysis\n\n")
         place_headers = [
-            "Model", "Total Places", "Valid PlaceIDs", "Invalid/Malformed/Stale PlaceIDs", "Other API Errors", "Avg Fuzzy Name Match Score"
+            "Model", "Total Places", "Valid PlaceIDs", "Valid CIDs", "Matching IDs", "Avg Fuzzy (PlaceID)", "Avg Fuzzy (CID)"
         ]
         place_rows = []
         for _, r in summary.iterrows():
             place_rows.append([
                 f"**{r['model']}**",
                 int(r['total_places']),
-                int(r['verified_places']) if "verified_places" in r else 0,
-                int(r['invalid_id_places']) if "invalid_id_places" in r else 0,
-                int(r['other_error_places']) if "other_error_places" in r else 0,
-                f"{r['avg_fuzzy_score']:.2f}"
+                int(r['valid_pids']) if "valid_pids" in r else 0,
+                int(r['valid_cids']) if "valid_cids" in r else 0,
+                int(r['matching_ids_sum']) if "matching_ids_sum" in r else 0,
+                f"{r['avg_fuzzy_pid']:.2f}" if "avg_fuzzy_pid" in r else "0.00",
+                f"{r['avg_fuzzy_cid']:.2f}" if "avg_fuzzy_cid" in r else "0.00"
             ])
         f.write(tabulate(place_rows, headers=place_headers, tablefmt="github"))
         f.write("\n\n")
         
         # 3. Add Place ID Verification Registry Table
         if not df_places.empty:
-            f.write("## 📌 Place ID Verification Registry\n\n")
-            f.write("The table below lists the unique Place IDs generated by each model, the name returned by Gemini, and the resolved name verified by the Places API:\n\n")
+            f.write("## 📌 Place ID & CID Verification Registry\n\n")
+            f.write("The table below lists the unique Place IDs and CIDs generated by each model, their respective validation status, and whether they successfully resolve to the same location:\n\n")
             
-            df_unique_places = df_places[["model", "generated_place_id", "grounding_name", "title", "retrieved_name", "verified"]].drop_duplicates().copy()
+            df_unique_places = df_places[[
+                "model", "generated_place_id", "generated_cid", 
+                "grounding_name", "title", 
+                "retrieved_name_place_id", "retrieved_name_cid",
+                "verified_place_id", "verified_cid", "matching_ids", "verified"
+            ]].drop_duplicates().copy()
             
             # Sort registry by model and name
             df_unique_places = df_unique_places.sort_values(by=["model", "title"]).reset_index(drop=True)
             
-            registry_headers = ["Model", "Generated Place ID / CID", "Name returned by Gemini", "Name from Grounding Chunk", "Resolved Name (Places API)", "Verified?"]
+            registry_headers = [
+                "Model", "Generated Place ID", "Generated CID", 
+                "Gemini Name", "Grounding Name", "Resolved Name (API)", 
+                "PID Valid?", "CID Valid?", "Match?"
+            ]
             registry_rows = []
             for _, r in df_unique_places.iterrows():
-                verified_str = "✅ Yes" if r["verified"] else "❌ No"
+                resolved_name = r["retrieved_name_cid"] if r["retrieved_name_cid"] else (r["retrieved_name_place_id"] if r["retrieved_name_place_id"] else "N/A")
+                pid_valid_str = "✅ Yes" if r["verified_place_id"] else "❌ No"
+                cid_valid_str = "✅ Yes" if r["verified_cid"] else "❌ No"
+                match_str = "✅ Yes" if r["matching_ids"] else "❌ No"
+                
+                pid_display = r["generated_place_id"] if r["generated_place_id"] else "N/A"
+                cid_display = r["generated_cid"] if r["generated_cid"] else "N/A"
+                
+                # If invalid, show placeholder format in ID values
+                if not r["verified_place_id"] and r["generated_place_id"]:
+                    pid_display = f"-- INVALID ID -- ({pid_display})"
+                if not r["verified_cid"] and r["generated_cid"]:
+                    cid_display = f"-- INVALID CID -- ({cid_display})"
+                
                 grounding_name_str = r["grounding_name"] if pd.notna(r["grounding_name"]) and r["grounding_name"] else "N/A"
-                if not r["verified"]:
-                    retrieved_name_str = "-- INVALID ID --"
-                else:
-                    retrieved_name_str = r["retrieved_name"] if r["retrieved_name"] else "N/A"
+                
                 registry_rows.append([
                     sanitize_md_cell(r["model"]),
-                    f"`{sanitize_md_cell(r['generated_place_id'])}`",
+                    sanitize_md_cell(pid_display),
+                    sanitize_md_cell(cid_display),
                     sanitize_md_cell(r["title"]),
                     sanitize_md_cell(grounding_name_str),
-                    sanitize_md_cell(retrieved_name_str),
-                    sanitize_md_cell(verified_str)
+                    sanitize_md_cell(resolved_name),
+                    sanitize_md_cell(pid_valid_str),
+                    sanitize_md_cell(cid_valid_str),
+                    sanitize_md_cell(match_str)
                 ])
             f.write(tabulate(registry_rows, headers=registry_headers, tablefmt="github"))
             f.write("\n\n")
@@ -219,10 +257,10 @@ def analyze_results(input_file, output_report):
         f.write(f"- **Vertex AI Location:** `{LOCATION}`\n\n")
         
         f.write("### Metric Definitions\n")
-        f.write("1. **Avg Gemini Call (s):** Average time taken by Gemini to run Google Maps grounding and output the structured JSON response containing the places and PlaceIDs.\n")
-        f.write("2. **Avg Places API Call (s):** Average time taken to verify all PlaceIDs in parallel against the Google Places API Details endpoint.\n")
+        f.write("1. **Avg Gemini Call (s):** Average time taken by Gemini to run Google Maps grounding and output the structured JSON response containing the places, PlaceIDs, and CIDs.\n")
+        f.write("2. **Avg Places API Call (s):** Average time taken to verify all PlaceIDs and CIDs in parallel against their respective Google APIs.\n")
         f.write("3. **Grounded Rate (%):** The percentage of successful Gemini requests that contained any grounding metadata chunks returned from Google Maps.\n")
-        f.write(r"4. **Verification Rate (%):** The percentage of model-generated places where the PlaceID was valid (Places API returned `OK`) AND the fuzzy string match score between the generated place name and the retrieved place name was $\ge 85\%$." + "\n")
+        f.write("4. **Verification Rate (%):** The percentage of model-generated places where the IDs were valid (PlaceID resolved AND/OR CID resolved successfully) AND the fuzzy match score was \\ge 85%.\n")
         
     print(f"Analysis complete. Beautiful report compiled at: {output_report}")
 
