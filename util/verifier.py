@@ -93,13 +93,20 @@ def verify_places(places, api_key, max_workers=5):
     
     def verify_single_place(place):
         title = place.get("title", "").strip()
-        generated_pid = place.get("PlaceId", "").strip()
-        generated_cid = place.get("CID", "").strip()
+        generated_pid = place.get("PlaceId") or place.get("place_id") or ""
+        generated_pid = str(generated_pid).strip()
+        
+        generated_cid = place.get("CID") or place.get("cid") or ""
+        generated_cid = str(generated_cid).strip()
+        
+        grounded_pid = place.get("grounded_place_id") or ""
+        grounded_pid = str(grounded_pid).strip()
         
         result = {
             "title": title,
             "generated_place_id": generated_pid,
             "generated_cid": generated_cid,
+            "grounded_place_id": grounded_pid,
             "status_place_id": "MISSING",
             "status_cid": "MISSING",
             "fuzzy_score_place_id": 0.0,
@@ -118,9 +125,10 @@ def verify_places(places, api_key, max_workers=5):
         
         start_time = time.time()
         
-        # 1. Verify PlaceID
-        if generated_pid:
-            res_pid, lat_pid = query_place_details(generated_pid, api_key)
+        # 1. Verify PlaceID using grounded_pid if found, otherwise generated_pid
+        pid_to_verify = grounded_pid or generated_pid
+        if pid_to_verify:
+            res_pid, lat_pid = query_place_details(pid_to_verify, api_key)
             status_pid = res_pid.get("status", "ERROR")
             result["status_place_id"] = status_pid
             if status_pid == "OK" and "result" in res_pid:
@@ -160,18 +168,33 @@ def verify_places(places, api_key, max_workers=5):
         result["latency"] = time.time() - start_time
         
         # 3. Check matching and overall verification
+        # The true canonical place ID is grounded_pid if found, otherwise cid_resolved_place_id
+        canonical_pid = grounded_pid or result["cid_resolved_place_id"]
+        
         if result["verified_place_id"] and result["verified_cid"]:
-            if result["cid_resolved_place_id"] and result["generated_place_id"]:
-                if result["cid_resolved_place_id"] == result["generated_place_id"]:
+            if canonical_pid and generated_pid:
+                if canonical_pid == generated_pid:
                     result["matching_ids"] = True
                 else:
-                    # Generated PlaceID doesn't match canonical PlaceID from CID - count as PlaceID failure
+                    # Generated PlaceID doesn't match canonical PlaceID - count as PlaceID failure
                     result["verified_place_id"] = False
+                    result["matching_ids"] = False
+            else:
+                result["matching_ids"] = False
             result["verified"] = True
         elif result["verified_cid"]:
             result["verified"] = True
+            if canonical_pid and generated_pid and canonical_pid == generated_pid:
+                result["matching_ids"] = True
+            else:
+                result["matching_ids"] = False
         elif result["verified_place_id"]:
-            result["verified"] = True
+            if canonical_pid and generated_pid and canonical_pid == generated_pid:
+                result["matching_ids"] = True
+                result["verified"] = True
+            else:
+                result["verified_place_id"] = False
+                result["verified"] = False
             
         return result
 

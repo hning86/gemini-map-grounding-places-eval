@@ -38,8 +38,8 @@ SCHEMA = {
             "items": {
                 "type": "object",
                 "properties": {
-                    "PlaceId":        {"type": "string"},
-                    "CID":            {"type": "string"},
+                    "place_id":       {"type": "string"},
+                    "cid":            {"type": "string"},
                     "title":          {"type": "string"},
                     "rating":         {"type": "string"},
                     "review_count":   {"type": "string"},
@@ -49,7 +49,7 @@ SCHEMA = {
                     "entry_price":    {"type": "string"},
                     "address":        {"type": "string"}
                 },
-                "required": ["PlaceId", "CID", "title", "rating", "review_count", "text"],
+                "required": ["place_id", "cid", "title", "rating", "review_count", "text"],
                 "additionalProperties": False
             }
         }
@@ -178,6 +178,27 @@ def run_evaluation(output_file, repetitions, models, effort, queries, workers=5)
                 try:
                     parsed_json = json.loads(response.text)
                     places = parsed_json.get("places", [])
+                    
+                    # Look up grounding chunk to find corresponding place_id
+                    for place in places:
+                        # Handle lowercase/uppercase key forms robustly
+                        cid_val = str(place.get("cid") or place.get("CID") or "").strip()
+                        grounded_place_id = None
+                        if cid_val:
+                            for chunk in grounding_chunks:
+                                maps_data = chunk.get("maps")
+                                if isinstance(maps_data, dict):
+                                    uri = maps_data.get("uri", "")
+                                    if uri and cid_val in uri:
+                                        g_pid = maps_data.get("place_id", "")
+                                        if g_pid.startswith("places/"):
+                                            g_pid = g_pid[len("places/"):]
+                                        grounded_place_id = g_pid
+                                        break
+                        place["grounded_place_id"] = grounded_place_id
+                    
+                    # Update record with the enriched JSON structure
+                    record["response_text"] = parsed_json
                 except Exception as je:
                     raise ValueError(f"Failed to parse generated JSON: {je}. Raw response: {response.text}")
                 
