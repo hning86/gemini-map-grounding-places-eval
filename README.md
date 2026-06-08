@@ -22,7 +22,7 @@ For the complete place-by-place validation registries, see the [Full Evaluation 
   Even though the stable `gemini-3.1-flash-lite` model reports a `0.00% Grounded Rate` (because the Vertex AI response payload does not include any `grounding_chunks` metadata under structured JSON output schemas), it **does query Google Maps internally** and replies with **real, valid CIDs** (yielding a `100.00% CID Verification Rate`). This indicates that the search grounding tool execution operates correctly internally, but the grounding metadata mapping payload is not returned by the API for the stable model version under structured constraints.
 
 * **Place ID vs. CID Output Paradox**:
-  * **The Schema Conflict**: Although the JSON output schema strictly requests a `PlaceId` (alphanumeric strings starting with `ChI...`), the model actually outputs 64-bit numeric **CIDs** (Customer IDs) the supermajority of the time. 
+  * **The Schema Paradox**: Even when the JSON output schema explicitly requests **both** a `PlaceId` (alphanumeric strings starting with `ChI...`) and a `CID` (64-bit numeric Customer IDs), the model's behavior confirms that it has access to CIDs but completely lacks Place IDs in its grounding search context. 
   * **100% Valid CIDs**: These returned numeric CIDs are **100% valid** across all tested models and resolve successfully to the correct POIs via the legacy Details API.
   * **Fabricated Alphanumeric PlaceIDs**: While CIDs are real and valid, the model **completely fabricates/hallucinates alphanumeric PlaceIDs**. When forced by the schema to output an alphanumeric `PlaceId`, it generates a realistic-looking string starting with `ChI...` that is either completely invalid (returning `NOT_FOUND` from the Places API) or resolves to a completely different location. Because Google Maps grounding tool results only expose CIDs within their URIs, the model does not have the true alphanumeric Place ID in its context and is forced to fabricate it.
   * **0% Match Rate Explained**: Across all 388 evaluated places, **not a single generated PlaceID matched the true PlaceID returned by the CID lookup**. In cases where the PlaceID check succeeded, the model had simply duplicated the numeric CID into the `PlaceId` schema field. When the model did generate a realistic alphanumeric `PlaceId` (e.g., `ChI...`), it was either invalid or pointed to a completely different place, demonstrating that the models are completely incapable of retrieving correct alphanumeric Place IDs.
@@ -64,7 +64,7 @@ The CLI orchestrator for running evaluations. It automatically:
 
 ### 2. `util/evaluator.py`
 - Prompts Gemini models using Vertex AI with Google Maps Grounding enabled.
-- Enforces a strict JSON output schema containing a `PlaceId` field.
+- Enforces a strict JSON output schema requiring both `PlaceId` and `CID` fields.
 
 ### 3. `util/verifier.py`
 - Live verification of generated IDs.
@@ -75,7 +75,7 @@ The CLI orchestrator for running evaluations. It automatically:
 
 ### 4. `util/analyzer.py` (Reporting)
 - Aggregates raw output logs.
-- Compiles the final Markdown evaluation report detailing overall latencies, verification rates, and a detailed **Place ID Verification Registry** table (highlighting `-- INVALID ID --` placeholders for failed resolutions).
+- Compiles the final Markdown evaluation report detailing overall latencies, verification rates, and a detailed **Place ID & CID Verification Registry** table (highlighting `(Invalid)` postfixes for failed resolutions).
 
 ---
 
@@ -84,9 +84,8 @@ The CLI orchestrator for running evaluations. It automatically:
 - **Gemini Call Latency (s)**: Average time for Gemini to execute Google Maps Grounding and return the structured JSON.
 - **Places API Call Latency (s)**: Average time to verify all generated Place IDs / CIDs in parallel via the Google Places Details API.
 - **Grounded Rate (%)**: Percentage of runs that successfully included search grounding metadata.
-- **Verification Rate (%)**: Percentage of generated places where:
-  1. The generated Place ID resolves successfully to a real Google listing (`OK` status).
-  2. The fuzzy match score between the generated place name and the retrieved place name is $\ge 85\%$.
+- **PlaceID Verification Rate (%)**: Percentage of generated places where the generated alphanumeric `PlaceId` resolved successfully to a real Google listing, fuzzy matched the name ($\ge 85\%$), and matched the canonical Place ID from the CID lookup.
+- **CID Verification Rate (%)**: Percentage of generated places where the generated numeric `CID` resolved successfully via the legacy API and fuzzy matched the name ($\ge 85\%$).
 
 ---
 
