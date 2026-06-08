@@ -9,6 +9,14 @@ PROJECT_ID = os.getenv("PROJECT_ID", "ninghai-ccai")
 LOCATION = os.getenv("LOCATION", "global")
 
 
+def sanitize_md_cell(val):
+    """Sanitize vertical bars | in string values to prevent breaking Markdown tables."""
+    if val is None:
+        return ""
+    val_str = str(val)
+    return val_str.replace("|", "\\|")
+
+
 def analyze_results(input_file, output_report):
     if not os.path.exists(input_file):
         print(f"Error: {input_file} not found.", file=sys.stderr)
@@ -193,12 +201,12 @@ def analyze_results(input_file, output_report):
                 else:
                     retrieved_name_str = r["retrieved_name"] if r["retrieved_name"] else "N/A"
                 registry_rows.append([
-                    r["model"],
-                    f"`{r['generated_place_id']}`",
-                    r["title"],
-                    grounding_name_str,
-                    retrieved_name_str,
-                    verified_str
+                    sanitize_md_cell(r["model"]),
+                    f"`{sanitize_md_cell(r['generated_place_id'])}`",
+                    sanitize_md_cell(r["title"]),
+                    sanitize_md_cell(grounding_name_str),
+                    sanitize_md_cell(retrieved_name_str),
+                    sanitize_md_cell(verified_str)
                 ])
             f.write(tabulate(registry_rows, headers=registry_headers, tablefmt="github"))
             f.write("\n\n")
