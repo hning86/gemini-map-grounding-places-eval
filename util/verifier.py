@@ -108,16 +108,21 @@ def verify_places(places, api_key, max_workers=5):
             "generated_cid": generated_cid,
             "grounded_place_id": grounded_pid,
             "status_place_id": "MISSING",
+            "status_grounded_place_id": "MISSING",
             "status_cid": "MISSING",
             "fuzzy_score_place_id": 0.0,
+            "fuzzy_score_grounded_place_id": 0.0,
             "fuzzy_score_cid": 0.0,
             "retrieved_name_place_id": None,
+            "retrieved_name_grounded_place_id": None,
             "retrieved_name_cid": None,
             "retrieved_address_place_id": None,
+            "retrieved_address_grounded_place_id": None,
             "retrieved_address_cid": None,
             "cid_resolved_place_id": None,
             "latency": 0.0,
             "verified_place_id": False,
+            "verified_grounded_place_id": False,
             "verified_cid": False,
             "verified": False,
             "matching_ids": False
@@ -125,10 +130,9 @@ def verify_places(places, api_key, max_workers=5):
         
         start_time = time.time()
         
-        # 1. Verify PlaceID using grounded_pid if found, otherwise generated_pid
-        pid_to_verify = grounded_pid or generated_pid
-        if pid_to_verify:
-            res_pid, lat_pid = query_place_details(pid_to_verify, api_key)
+        # 1. Verify Generated PlaceID
+        if generated_pid:
+            res_pid, lat_pid = query_place_details(generated_pid, api_key)
             status_pid = res_pid.get("status", "ERROR")
             result["status_place_id"] = status_pid
             if status_pid == "OK" and "result" in res_pid:
@@ -145,7 +149,34 @@ def verify_places(places, api_key, max_workers=5):
             elif "error_message" in res_pid:
                 result["error_message_place_id"] = res_pid["error_message"]
         
-        # 2. Verify CID
+        # 2. Verify Grounded PlaceID
+        if grounded_pid:
+            if grounded_pid == generated_pid:
+                # Share results to avoid duplicate API call
+                result["status_grounded_place_id"] = result["status_place_id"]
+                result["retrieved_name_grounded_place_id"] = result["retrieved_name_place_id"]
+                result["retrieved_address_grounded_place_id"] = result["retrieved_address_place_id"]
+                result["fuzzy_score_grounded_place_id"] = result["fuzzy_score_place_id"]
+                result["verified_grounded_place_id"] = result["verified_place_id"]
+            else:
+                res_gr, lat_gr = query_place_details(grounded_pid, api_key)
+                status_gr = res_gr.get("status", "ERROR")
+                result["status_grounded_place_id"] = status_gr
+                if status_gr == "OK" and "result" in res_gr:
+                    retrieved_name = res_gr["result"].get("name", "")
+                    result["retrieved_name_grounded_place_id"] = retrieved_name
+                    result["retrieved_address_grounded_place_id"] = res_gr["result"].get("formatted_address", "")
+                    
+                    score = fuzz.token_sort_ratio(title.lower(), retrieved_name.lower())
+                    result["fuzzy_score_grounded_place_id"] = score
+                    if score >= 85.0:
+                        result["verified_grounded_place_id"] = True
+                elif status_gr == "NOT_FOUND":
+                    result["error_message_grounded_place_id"] = "Invalid or stale Grounded Place ID."
+                elif "error_message" in res_gr:
+                    result["error_message_grounded_place_id"] = res_gr["error_message"]
+        
+        # 3. Verify CID
         if generated_cid:
             res_cid, lat_cid = query_place_details(generated_cid, api_key)
             status_cid = res_cid.get("status", "ERROR")
@@ -167,35 +198,16 @@ def verify_places(places, api_key, max_workers=5):
                 
         result["latency"] = time.time() - start_time
         
-        # 3. Check matching and overall verification
-        # The true canonical place ID is grounded_pid if found, otherwise cid_resolved_place_id
+        # 4. Check matching and overall verification
         canonical_pid = grounded_pid or result["cid_resolved_place_id"]
         
-        if result["verified_place_id"] and result["verified_cid"]:
-            if canonical_pid and generated_pid:
-                if canonical_pid == generated_pid:
-                    result["matching_ids"] = True
-                else:
-                    # Generated PlaceID doesn't match canonical PlaceID - count as PlaceID failure
-                    result["verified_place_id"] = False
-                    result["matching_ids"] = False
-            else:
-                result["matching_ids"] = False
+        if result["verified_cid"] or result["verified_grounded_place_id"]:
             result["verified"] = True
-        elif result["verified_cid"]:
-            result["verified"] = True
-            if canonical_pid and generated_pid and canonical_pid == generated_pid:
-                result["matching_ids"] = True
-            else:
-                result["matching_ids"] = False
-        elif result["verified_place_id"]:
-            if canonical_pid and generated_pid and canonical_pid == generated_pid:
-                result["matching_ids"] = True
-                result["verified"] = True
-            else:
-                result["verified_place_id"] = False
-                result["verified"] = False
             
+        if generated_pid and canonical_pid:
+            if canonical_pid == generated_pid:
+                result["matching_ids"] = True
+                
         return result
 
     # Execute Place API details queries in parallel using ThreadPoolExecutor
