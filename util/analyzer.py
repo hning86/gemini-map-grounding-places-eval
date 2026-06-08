@@ -230,14 +230,19 @@ def analyze_results(input_file, output_report):
                 cid_valid_str = "✅ Yes" if r["verified_cid"] else "❌ No"
                 match_str = "✅ Yes" if r["matching_ids"] else "❌ No"
                 
-                pid_display = r["generated_place_id"] if r["generated_place_id"] else "N/A"
-                cid_display = r["generated_cid"] if r["generated_cid"] else "N/A"
+                pid_raw = r["generated_place_id"]
+                cid_raw = r["generated_cid"]
                 
-                # If invalid, show placeholder format in ID values
-                if not r["verified_place_id"] and r["generated_place_id"]:
-                    pid_display = f"-- INVALID ID -- ({pid_display})"
-                if not r["verified_cid"] and r["generated_cid"]:
-                    cid_display = f"-- INVALID CID -- ({cid_display})"
+                pid_has_value = pd.notna(pid_raw) and str(pid_raw).strip() not in ["", "nan", "None", "N/A"]
+                cid_has_value = pd.notna(cid_raw) and str(cid_raw).strip() not in ["", "nan", "None", "N/A"]
+                
+                pid_display = str(pid_raw).strip() if pid_has_value else "N/A"
+                cid_display = str(cid_raw).strip() if cid_has_value else "N/A"
+                
+                if not r["verified_place_id"] and pid_has_value:
+                    pid_display = f"{pid_display} (Invalid)"
+                if not r["verified_cid"] and cid_has_value:
+                    cid_display = f"{cid_display} (Invalid)"
                 
                 grounding_name_str = r["grounding_name"] if pd.notna(r["grounding_name"]) and r["grounding_name"] else "N/A"
                 
