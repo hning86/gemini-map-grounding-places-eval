@@ -171,13 +171,7 @@ def run_evaluation(output_file, repetitions, models, effort, queries, workers=5)
                 if response.candidates and response.candidates[0].grounding_metadata:
                     metadata = response.candidates[0].grounding_metadata
                     if metadata.grounding_chunks:
-                        for chunk in metadata.grounding_chunks:
-                            if chunk.maps:
-                                grounding_chunks.append({
-                                    "title": chunk.maps.title,
-                                    "place_id": chunk.maps.place_id,
-                                    "uri": chunk.maps.uri
-                                })
+                        grounding_chunks = [chunk.model_dump() for chunk in metadata.grounding_chunks]
                 record["grounding_chunks"] = grounding_chunks
                 
                 # Parse output places and run Stage B

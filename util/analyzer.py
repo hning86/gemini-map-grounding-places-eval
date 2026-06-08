@@ -59,20 +59,38 @@ def analyze_results(input_file, output_report):
             grounding_name = None
             
             for chunk in row.get("grounding_chunks", []):
-                chunk_pid = chunk.get("place_id", "")
-                chunk_uri = chunk.get("uri", "")
+                maps_data = chunk.get("maps")
+                web_data = chunk.get("web")
+                
+                chunk_pid = ""
+                chunk_uri = ""
+                chunk_title = ""
+                
+                if isinstance(maps_data, dict):
+                    chunk_pid = maps_data.get("place_id", "")
+                    chunk_uri = maps_data.get("uri", "")
+                    chunk_title = maps_data.get("title", "")
+                elif isinstance(web_data, dict):
+                    chunk_uri = web_data.get("uri", "")
+                    chunk_title = web_data.get("title", "")
+                else:
+                    # Fallback to old format
+                    chunk_pid = chunk.get("place_id", "")
+                    chunk_uri = chunk.get("uri", "")
+                    chunk_title = chunk.get("title", "")
+                    
                 # Match by Place ID
                 if generated_pid:
                     if chunk_pid and (chunk_pid == generated_pid or chunk_pid.endswith("/" + generated_pid)):
-                        grounding_name = chunk.get("title")
+                        grounding_name = chunk_title
                         break
                     if chunk_uri and generated_pid in chunk_uri:
-                        grounding_name = chunk.get("title")
+                        grounding_name = chunk_title
                         break
                 # Match by CID
                 if generated_cid:
                     if chunk_uri and generated_cid in chunk_uri:
-                        grounding_name = chunk.get("title")
+                        grounding_name = chunk_title
                         break
 
             place_records.append({
