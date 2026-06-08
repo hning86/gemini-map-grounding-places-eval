@@ -13,10 +13,6 @@ __pycache__/
 *.pyo
 *.pyd
 
-# Output directories
-results/
-reports/
-
 # IDE files
 .idea/
 .vscode/
