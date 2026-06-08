@@ -8,10 +8,11 @@ This project is a 2-stage Point-of-Interest (POI) discovery and verification eva
 
 Here is the consolidated metrics summary from the latest full evaluation run:
 
-| Model | Runs | Avg Gemini Call Latency (s) | Avg Places API Call Latency (s) | Grounded Rate (%) | Total Places | Verified Places | Verification Rate (%) |
+| Model | Runs | Avg Gemini Call (s) | Avg Places API Call (s) | Grounded Rate (%) | Total Places | PlaceID Verification Rate (%) | CID Verification Rate (%) |
 |---|---|---|---|---|---|---|---|
-| **gemini-3.1-flash-lite** | 25 | 5.39s | 0.57s | 0.00% | 130 | 125 | 96.15% |
-| **gemini-3.1-flash-lite-preview** | 24 | 5.40s | 0.56s | 100.00% | 122 | 107 | 87.70% |
+| **gemini-3.1-flash-lite** | 25 | 6.69s | 1.15s | 0.00% | 135 | 15.56% | 100.00% |
+| **gemini-3.1-flash-lite-preview** | 25 | 7.52s | 1.16s | 100.00% | 131 | 50.38% | 100.00% |
+| **gemini-3.5-flash** | 25 | 14.23s | 0.99s | 12.00% | 122 | 13.11% | 100.00% |
 
 For the complete place-by-place validation registries, see the [Full Evaluation Report](reports/full_evaluation_report.md).
 

@@ -116,6 +116,8 @@ def analyze_results(input_file, output_report):
         place_summary = df_places.groupby(["model", "effort"]).agg(
             total_places=("title", "count"),
             verified_places=("verified", "sum"),
+            verified_pids=("verified_place_id", "sum"),
+            verified_cids=("verified_cid", "sum"),
             valid_pids=("is_valid_pid", "sum"),
             valid_cids=("is_valid_cid", "sum"),
             matching_ids_sum=("matching_ids", "sum"),
@@ -127,17 +129,21 @@ def analyze_results(input_file, output_report):
         summary = run_summary.merge(place_summary, on=["model", "effort"], how="left")
         
         # Calculate rates
-        summary["verification_rate"] = (summary["verified_places"] / summary["total_places"]) * 100
+        summary["pid_verification_rate"] = (summary["verified_pids"] / summary["total_places"]) * 100
+        summary["cid_verification_rate"] = (summary["verified_cids"] / summary["total_places"]) * 100
     else:
         summary = run_summary
         summary["total_places"] = 0
         summary["verified_places"] = 0
+        summary["verified_pids"] = 0
+        summary["verified_cids"] = 0
         summary["valid_pids"] = 0
         summary["valid_cids"] = 0
         summary["matching_ids_sum"] = 0
         summary["avg_fuzzy_pid"] = 0.0
         summary["avg_fuzzy_cid"] = 0.0
-        summary["verification_rate"] = 0.0
+        summary["pid_verification_rate"] = 0.0
+        summary["cid_verification_rate"] = 0.0
         
     summary["grounded_rate"] = summary["grounded_rate"] * 100
     
@@ -159,7 +165,7 @@ def analyze_results(input_file, output_report):
         
         headers = [
             "Model", "Runs", "Avg Gemini Call (s)", "Avg Places API Call (s)", 
-            "Grounded Rate (%)", "Total Places", "Verified Places", "Verification Rate (%)"
+            "Grounded Rate (%)", "Total Places", "PlaceID Verification Rate (%)", "CID Verification Rate (%)"
         ]
         
         table_rows = []
@@ -171,8 +177,8 @@ def analyze_results(input_file, output_report):
                 f"{r['avg_latency_b']:.2f}s",
                 f"{r['grounded_rate']:.2f}%",
                 int(r['total_places']),
-                int(r['verified_places']),
-                f"{r['verification_rate']:.2f}%"
+                f"{r['pid_verification_rate']:.2f}%" if "pid_verification_rate" in r else "0.00%",
+                f"{r['cid_verification_rate']:.2f}%" if "cid_verification_rate" in r else "0.00%"
             ])
             
         from tabulate import tabulate
@@ -260,7 +266,8 @@ def analyze_results(input_file, output_report):
         f.write("1. **Avg Gemini Call (s):** Average time taken by Gemini to run Google Maps grounding and output the structured JSON response containing the places, PlaceIDs, and CIDs.\n")
         f.write("2. **Avg Places API Call (s):** Average time taken to verify all PlaceIDs and CIDs in parallel against their respective Google APIs.\n")
         f.write("3. **Grounded Rate (%):** The percentage of successful Gemini requests that contained any grounding metadata chunks returned from Google Maps.\n")
-        f.write("4. **Verification Rate (%):** The percentage of model-generated places where the IDs were valid (PlaceID resolved AND/OR CID resolved successfully) AND the fuzzy match score was \\ge 85%.\n")
+        f.write("4. **PlaceID Verification Rate (%):** The percentage of model-generated places where the alphanumeric `PlaceId` was valid AND the fuzzy match score was \\ge 85%.\n")
+        f.write("5. **CID Verification Rate (%):** The percentage of model-generated places where the numeric `CID` was valid AND the fuzzy match score was \\ge 85%.\n")
         
     print(f"Analysis complete. Beautiful report compiled at: {output_report}")
 

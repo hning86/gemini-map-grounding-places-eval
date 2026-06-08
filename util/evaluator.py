@@ -12,7 +12,7 @@ from .verifier import query_place_details, verify_places
 load_dotenv()
 
 # Configuration (Defaults)
-DEFAULT_MODELS = ["gemini-3.1-flash-lite-preview", "gemini-3.1-flash-lite"]
+DEFAULT_MODELS = ["gemini-3.1-flash-lite-preview", "gemini-3.1-flash-lite", "gemini-3.5-flash"]
 DEFAULT_EFFORT = "low"
 PROJECT_ID = os.getenv("PROJECT_ID")
 LOCATION = os.getenv("LOCATION")

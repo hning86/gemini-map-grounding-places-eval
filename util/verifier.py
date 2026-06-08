@@ -164,12 +164,10 @@ def verify_places(places, api_key, max_workers=5):
             if result["cid_resolved_place_id"] and result["generated_place_id"]:
                 if result["cid_resolved_place_id"] == result["generated_place_id"]:
                     result["matching_ids"] = True
-                    result["verified"] = True
-        elif result["verified_cid"] and not generated_pid:
-            # If schema didn't produce a PlaceID but CID is valid
             result["verified"] = True
-        elif result["verified_place_id"] and not generated_cid:
-            # If schema didn't produce a CID but PlaceID is valid
+        elif result["verified_cid"]:
+            result["verified"] = True
+        elif result["verified_place_id"]:
             result["verified"] = True
             
         return result
