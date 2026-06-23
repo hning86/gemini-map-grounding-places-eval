@@ -8,11 +8,13 @@ from google import genai
 from google.genai import types
 from dotenv import load_dotenv
 from .verifier import query_place_details, verify_places
+from rapidfuzz import fuzz
+
 
 load_dotenv()
 
 # Configuration (Defaults)
-DEFAULT_MODELS = ["gemini-3.1-flash-lite-preview", "gemini-3.1-flash-lite", "gemini-3.5-flash"]
+DEFAULT_MODELS = ["gemini-3.1-flash-lite-preview", "gemini-3.1-flash-lite"]
 DEFAULT_EFFORT = "low"
 PROJECT_ID = os.getenv("PROJECT_ID")
 LOCATION = os.getenv("LOCATION")
@@ -66,6 +68,7 @@ CRITICAL RULES:
 1. You are FORBIDDEN from listing any place purely from your training data.
 2. You MUST use Google Maps search queries to discover places and retrieve their current details.
 3. All ratings, review counts, and addresses in your final JSON response must match the Google Maps grounding results exactly.
+4. End each claim with a citation like [1] even if it is within JSON.
 """
 
 # Verification functions query_place_details and verify_places have been moved to verifier.py
@@ -126,7 +129,10 @@ def run_evaluation(output_file, repetitions, models, effort, queries, workers=5)
     if os.path.dirname(output_file):
         os.makedirs(os.path.dirname(output_file), exist_ok=True)
         
-    with open(output_file, "w") as f:
+    base, ext = os.path.splitext(output_file)
+    raw_output_file = base + "_raw" + ext
+        
+    with open(output_file, "w") as f, open(raw_output_file, "w") as rf:
         def worker(task):
             model, query, i = task
             record = {
@@ -142,6 +148,15 @@ def run_evaluation(output_file, repetitions, models, effort, queries, workers=5)
                 "response_text": None,
                 "grounding_chunks": [],
                 "places_verified": []
+            }
+            raw_record = {
+                "model": model,
+                "effort": effort,
+                "query": query,
+                "iteration": i,
+                "timestamp": record["timestamp"],
+                "success": False,
+                "raw_response": None
             }
             
             try:
@@ -166,6 +181,13 @@ def run_evaluation(output_file, repetitions, models, effort, queries, workers=5)
                 record["latency_stage_a"] = latency_a
                 record["response_text"] = response.text
                 
+                # Capture the raw Gemini response
+                try:
+                    raw_record["raw_response"] = json.loads(response.model_dump_json())
+                    raw_record["success"] = True
+                except Exception as re:
+                    raw_record["raw_response_error"] = str(re)
+                
                 # Extract reference grounding chunks for reporting/analysis
                 grounding_chunks = []
                 if response.candidates and response.candidates[0].grounding_metadata:
@@ -176,25 +198,41 @@ def run_evaluation(output_file, repetitions, models, effort, queries, workers=5)
                 
                 # Parse output places and run Stage B
                 try:
-                    parsed_json = json.loads(response.text)
+                    response_text_clean = response.text or ""
+                    response_text_clean = response_text_clean.strip()
+                    if response_text_clean.startswith("```"):
+                        if response_text_clean.startswith("```json"):
+                            response_text_clean = response_text_clean[7:]
+                        else:
+                            response_text_clean = response_text_clean[3:]
+                        if response_text_clean.endswith("```"):
+                            response_text_clean = response_text_clean[:-3]
+                        response_text_clean = response_text_clean.strip()
+
+                    parsed_json = json.loads(response_text_clean)
                     places = parsed_json.get("places", [])
                     
-                    # Look up grounding chunk to find corresponding place_id
+                    # Look up grounding chunk to find corresponding place_id by title similarity
                     for place in places:
-                        # Handle lowercase/uppercase key forms robustly
-                        cid_val = str(place.get("cid") or place.get("CID") or "").strip()
+                        place_title = str(place.get("title") or "").strip()
                         grounded_place_id = None
-                        if cid_val:
+                        if place_title:
+                            best_score = 0.0
+                            best_pid = None
                             for chunk in grounding_chunks:
                                 maps_data = chunk.get("maps")
                                 if isinstance(maps_data, dict):
-                                    uri = maps_data.get("uri", "")
-                                    if uri and cid_val in uri:
-                                        g_pid = maps_data.get("place_id", "")
-                                        if g_pid.startswith("places/"):
-                                            g_pid = g_pid[len("places/"):]
-                                        grounded_place_id = g_pid
-                                        break
+                                    chunk_title = str(maps_data.get("title") or "").strip()
+                                    if chunk_title:
+                                        score = fuzz.token_sort_ratio(place_title.lower(), chunk_title.lower())
+                                        if score > best_score:
+                                            best_score = score
+                                            g_pid = maps_data.get("place_id", "")
+                                            if g_pid.startswith("places/"):
+                                                g_pid = g_pid[len("places/"):]
+                                            best_pid = g_pid
+                            if best_score >= 85.0:
+                                grounded_place_id = best_pid
                         place["grounded_place_id"] = grounded_place_id
                     
                     # Update record with the enriched JSON structure
@@ -214,6 +252,7 @@ def run_evaluation(output_file, repetitions, models, effort, queries, workers=5)
                 
             except Exception as e:
                 record["error"] = str(e)
+                raw_record["error"] = str(e)
                 # Small backoff on error
                 time.sleep(1.0)
                 
@@ -224,6 +263,8 @@ def run_evaluation(output_file, repetitions, models, effort, queries, workers=5)
                     success_count += 1
                 f.write(json.dumps(record) + "\n")
                 f.flush()
+                rf.write(json.dumps(raw_record) + "\n")
+                rf.flush()
                 success_rate = success_count / completed_count if completed_count > 0 else 0.0
                 pbar.set_postfix(success_rate=f"{success_rate:.2%} ({success_count}/{completed_count})")
                 pbar.update(1)
@@ -235,8 +276,10 @@ def run_evaluation(output_file, repetitions, models, effort, queries, workers=5)
             executor.map(worker, tasks)
             
     pbar.close()
-    print(f"\nEvaluation complete. Raw results saved to {output_file}")
+    print(f"\nEvaluation complete. Results saved to {output_file}")
     save_as_pretty_json(output_file)
+    print(f"Raw Gemini responses saved to {raw_output_file}")
+    save_as_pretty_json(raw_output_file)
 
 if __name__ == "__main__":
     import argparse

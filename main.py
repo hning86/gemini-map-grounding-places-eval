@@ -29,7 +29,15 @@ if __name__ == "__main__":
     models_to_eval = [m.strip() for m in args.model.split(",")]
     
     # Clean up previous results if they exist to prevent combining old and new data
-    for file_path in [output_results, output_results.replace(".jsonl", ".json")]:
+    base_res, ext_res = os.path.splitext(output_results)
+    raw_results = base_res + "_raw" + ext_res
+    files_to_clean = [
+        output_results,
+        output_results.replace(".jsonl", ".json"),
+        raw_results,
+        raw_results.replace(".jsonl", ".json")
+    ]
+    for file_path in files_to_clean:
         if os.path.exists(file_path):
             try:
                 os.remove(file_path)

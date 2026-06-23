@@ -191,7 +191,7 @@ def analyze_results(input_file, output_report):
         f.write("# Gemini 2-Stage Grounding & Places API Verification Report\n\n")
         f.write("This report details the evaluation metrics and verification results from the 2-stage Point-of-Interest (POI) discovery framework.\n")
         f.write("- **Stage A**: Gemini generation with structured output schema (requiring both PlaceID and CID) and Google Maps grounding enabled.\n")
-        f.write("- **Stage B**: Live Verification of the generated PlaceID, the grounded PlaceID (extracted from Maps grounding chunks matching the CID), and the CID.\n\n")
+        f.write("- **Stage B**: Live Verification of the generated PlaceID, the grounded PlaceID (extracted from Maps grounding chunks by title similarity), and the CID.\n\n")
         
         f.write("## 📊 Consolidated Metrics Summary\n\n")
         
