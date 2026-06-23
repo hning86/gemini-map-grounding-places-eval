@@ -1,0 +1,1064 @@
+[
+  {
+    "model": "gemini-3.1-flash-lite-preview",
+    "effort": "low",
+    "query": "Best street food spots and street food markets in Hanoi",
+    "iteration": 0,
+    "timestamp": 1782175638.4747899,
+    "success": true,
+    "raw_response": {
+      "sdk_http_response": {
+        "headers": {
+          "content-type": "application/json; charset=UTF-8",
+          "vary": "Origin, X-Origin, Referer",
+          "content-encoding": "gzip",
+          "date": "Tue, 23 Jun 2026 00:47:25 GMT",
+          "server": "scaffolding on HTTPServer2",
+          "x-xss-protection": "0",
+          "x-frame-options": "SAMEORIGIN",
+          "x-content-type-options": "nosniff",
+          "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+          "transfer-encoding": "chunked"
+        },
+        "body": null
+      },
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "media_resolution": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "file_data": null,
+                "function_call": null,
+                "function_response": null,
+                "inline_data": null,
+                "text": "{\n  \"places\": [\n    {\n      \"place_id\": \"ChIJb_f56y0pnmARy9c03V2Kz1o\",\n      \"cid\": \"17004396853142544051\",\n      \"title\": \"Banh Mi 25\",\n      \"rating\": \"4.4\",\n      \"review_count\": \"16806\",\n      \"text\": \"A world-renowned sandwich shop in the heart of the Old Quarter, famous for its extensive menu of traditional and modern Vietnamese baguettes [1.1.2].\",\n      \"place_type\": \"Sandwich Shop\",\n      \"opening_hours\": \"Monday-Sunday: 7:00 AM – 9:00 PM\",\n      \"entry_price\": \"Inexpensive\",\n      \"address\": \"25 P. Hàng Cá, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 100000, Vietnam\"\n    },\n    {\n      \"place_id\": \"ChIJ2V0f3SopnmAR1zHjHwWp7x0\",\n      \"cid\": \"423869191187880331\",\n      \"title\": \"Phở Gia Truyền Bát Đàn\",\n      \"rating\": \"4.3\",\n      \"review_count\": \"5561\",\n      \"text\": \"An iconic and historic establishment beloved by locals and tourists alike for its authentic Hanoi-style beef phở.\",\n      \"place_type\": \"Restaurant\",\n      \"opening_hours\": \"Monday-Sunday: 6:00–11:00 AM, 5:00–9:30 PM\",\n      \"entry_price\": \"Inexpensive\",\n      \"address\": \"49 P. Bát Đàn, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam\"\n    },\n    {\n      \"place_id\": \"ChIJq4jY2CopnmAR0b5f1e8qLg0\",\n      \"cid\": \"840573277241490588\",\n      \"title\": \"Gánh Hà Nội\",\n      \"rating\": \"4.9\",\n      \"review_count\": \"10226\",\n      \"text\": \"A highly-rated destination offering a refined take on classic Vietnamese street food dishes in a comfortable setting.\",\n      \"place_type\": \"Vietnamese Restaurant\",\n      \"opening_hours\": \"Monday-Sunday: 10:00 AM – 11:00 PM\",\n      \"entry_price\": \"Moderate\",\n      \"address\": \"115 P. Hàng Buồm, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam\"\n    },\n    {\n      \"place_id\": \"ChIJT3u-zS0pnmARy7qGZ7u-G64\",\n      \"cid\": \"8227646880567070900\",\n      \"title\": \"Hanoi Weekend Night Market Start Point\",\n      \"rating\": \"4.3\",\n      \"review_count\": \"149\",\n      \"text\": \"The primary entrance to the vibrant weekend market scene where travelers can experience a wide variety of street snacks and souvenirs.\",\n      \"place_type\": \"Market\",\n      \"opening_hours\": \"Friday-Sunday: 6:00–11:00 PM\",\n      \"entry_price\": \"N/A\",\n      \"address\": \"104 P. Hàng Đào, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam\"\n    },\n    {\n      \"place_id\": \"ChIJ27dKwy0pnmAR7Z9g9QjK3Wk\",\n      \"cid\": \"12166938503751067978\",\n      \"title\": \"Bánh Bao Bình Mỗ\",\n      \"rating\": \"4.8\",\n      \"review_count\": \"773\",\n      \"text\": \"A popular local spot recognized for its delicious steamed buns and traditional Vietnamese bites.\",\n      \"place_type\": \"Family Restaurant\",\n      \"opening_hours\": \"Monday-Sunday: 7:00 AM – 10:00 PM\",\n      \"entry_price\": \"N/A\",\n      \"address\": \"10 P. Quán Sứ, Hoàn Kiếm, Hà Nội 100000, Vietnam\"\n    }\n  ]\n}",
+                "thought": null,
+                "thought_signature": "AY89a1-E2JobxPj-tD5v8A39g_nETbZZ3Q0G4WBtzgpolZSKFYypgiiQ8dAxIiEKzgZSAQcPdG7wwriUefmmDG_jBpWnJOK-Ihrd6EKhlFxrLeo8D79-Yu0RpO2fG5kYUj5WcdKpkDBOtnEN4utex2fu0luKzE-JeJXMc8Pcnb5Ft1t5e-lDZXnV6Hb4pMc5Y8QRxNkadwNQ70R8QbKuIXb9ZWOp6XKmfskwjQYkqjY5JmcLS_nAZHJjV2QpdFxiiDtZG6xROX5w1sTRPAt2DFa59ZBLWOqk5ipbT7NW6RYvQaFBXEwMoC516-MHximbQbL84gDcHn5oNZkmA02P0UDD7maLVlTLp_fP4Y3XkFtNRqrQOzIUQzZDZ3YHwT1o2Fw2iFQSPyzTYEyZkuvrb47YibMS2ubHNkBwNs3hV9_hrvDwqKk-h0gxohwFi43187jwYYxZ0lLvGtIZEk-Lv3A9F6VKemavfAWfOeEVpuI_CPjhWLo3EE4zMpAfBZrjLoEF_Fj_dB3Dhll5YkjJLlBcTbvPT-jkbbBp6NbK1T5MdOMu8BpBFKSuoHFhcmyu5VU0yEfbbqcw7mI70GqcEXE2VnSu8gt3PdPT5Blx710xisjx91-PkaWBgUM46uZH-AhKXQY195pR-0sN2NO7OvV6N-iQjUF23pUoHTvM1wMpueqfBgWTzYHVprf56bA0e3Ts-eISF4hXwlGoDeeTtIGydi1S8Y6nDpqeNnoZK1zzccB1g6A_1QrpdEGD86Fje_xv8LbHjy6lVe5MFz4nZx3HAC6HyLLSNe_JBqVaLIsUQeshczKKYcpg0ESsoFVNtKRC2jnvzRK32zbVu2RN-y7UjOJLo50NPNYlvcBiZjARPhrYN5OCZtgAFuuqZFFnrtEog_ZNi4AswIcz",
+                "video_metadata": null,
+                "tool_call": null,
+                "tool_response": null,
+                "part_metadata": null
+              }
+            ],
+            "role": "model"
+          },
+          "citation_metadata": null,
+          "finish_message": null,
+          "token_count": null,
+          "finish_reason": "STOP",
+          "grounding_metadata": {
+            "image_search_queries": null,
+            "grounding_chunks": [
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJO7qN1b2rNTERi1n8m8ji4QU",
+                  "text": null,
+                  "title": "Phở Gia Truyền Bát Đàn",
+                  "uri": "https://maps.google.com/?cid=423869191187880331",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJi-Y8nu2rNTERnDyqLfFQqgs",
+                  "text": null,
+                  "title": "Gánh Hà Nội",
+                  "uri": "https://maps.google.com/?cid=840573277241490588",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJ3x01HQCrNTERtBCN9T55LnI",
+                  "text": null,
+                  "title": "Hanoi Weekend Night Market Start Point",
+                  "uri": "https://maps.google.com/?cid=8227646880567070900",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJQXRe2MSrNTERSukaIBum2ag",
+                  "text": null,
+                  "title": "Bánh Bao Bình Mỗ",
+                  "uri": "https://maps.google.com/?cid=12166938503751067978",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJp0o4Er6rNTERjlTif_IXU1k",
+                  "text": null,
+                  "title": "Hanoi Old Quarter",
+                  "uri": "https://maps.google.com/?cid=6436514622737634446",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJBc_8ksCrNTER7xjIdzUga9w",
+                  "text": null,
+                  "title": "Hanoi Food Culture Restaurant & Cooking Class",
+                  "uri": "https://maps.google.com/?cid=15882823924867143919",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJuck1ZDerNTER-LdQk95DY0I",
+                  "text": null,
+                  "title": "Dong Xuan Alley",
+                  "uri": "https://maps.google.com/?cid=4783741852430940152",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJLYzBHDCrNTERLojaNabotBM",
+                  "text": null,
+                  "title": "Boutique Hanoi Street Food Tours by Ms. Yummyface",
+                  "uri": "https://maps.google.com/?cid=1420015583094278190",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJ3x01HQCrNTERtBCN9T55LnI",
+                  "text": null,
+                  "title": "Hanoi Weekend Night Market Start Point",
+                  "uri": "https://maps.google.com/?cid=8227646880567070900",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJg2mwUcerNTER_O8PpTkWfHs",
+                  "text": null,
+                  "title": "Hanoi Street Food Restaurant",
+                  "uri": "https://maps.google.com/?cid=8898011400615489532",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJOQries6rNTERGxtJMNKurHc",
+                  "text": null,
+                  "title": "Banh Mi MAMA",
+                  "uri": "https://maps.google.com/?cid=8623459604284119835",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJIUjGf7-rNTERX1M5pIsHFiU",
+                  "text": null,
+                  "title": "Phở Sướng",
+                  "uri": "https://maps.google.com/?cid=2672331725228036959",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJKUiKP12rNTERBX8GGBOD0pY",
+                  "text": null,
+                  "title": "Locals' Food Street",
+                  "uri": "https://maps.google.com/?cid=10867892968829124357",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJO7qN1b2rNTERi1n8m8ji4QU",
+                  "text": null,
+                  "title": "Phở Gia Truyền Bát Đàn",
+                  "uri": "https://maps.google.com/?cid=423869191187880331",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJf_4Ie7-rNTERqD8UU8HVyhA",
+                  "text": null,
+                  "title": "Hanoi Street Food Tour",
+                  "uri": "https://maps.google.com/?cid=1210014476201639848",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJtRY3u3SrNTERs95UQ9jA--s",
+                  "text": null,
+                  "title": "Banh Mi 25",
+                  "uri": "https://maps.google.com/?cid=17004396853142544051",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJRzqvWgCrNTERit--CrPkjno",
+                  "text": null,
+                  "title": "Hanoi Walking Food Tour",
+                  "uri": "https://maps.google.com/?cid=8831247376950681482",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJIa5NbACrNTERQXWu5etnRv4",
+                  "text": null,
+                  "title": "Night market start ( Friday to Sunday)",
+                  "uri": "https://maps.google.com/?cid=18322446396871832897",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJI7yjpm6rNTERPwJ2SDWHQyo",
+                  "text": null,
+                  "title": "KIN Streetfood",
+                  "uri": "https://maps.google.com/?cid=3045426435951297087",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJSy3R1jgvdTERE51Ytwqzbpo",
+                  "text": null,
+                  "title": "Ben Nghe Street Food",
+                  "uri": "https://maps.google.com/?cid=11128028587886157075",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJi-Y8nu2rNTERnDyqLfFQqgs",
+                  "text": null,
+                  "title": "Gánh Hà Nội",
+                  "uri": "https://maps.google.com/?cid=840573277241490588",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJQXRe2MSrNTERSukaIBum2ag",
+                  "text": null,
+                  "title": "Bánh Bao Bình Mỗ",
+                  "uri": "https://maps.google.com/?cid=12166938503751067978",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJx3Cwo9erNTERUmIcTiSm4Ug",
+                  "text": null,
+                  "title": "Snail Streetfood",
+                  "uri": "https://maps.google.com/?cid=5251661315350225490",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJb-nIxTyrNTER2N7x05ZIZKU",
+                  "text": null,
+                  "title": "Bamichao - Vua Banh Mi Chao",
+                  "uri": "https://maps.google.com/?cid=11917730326567313112",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              }
+            ],
+            "grounding_supports": [
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  0
+                ],
+                "segment": {
+                  "start_index": 516,
+                  "end_index": 917,
+                  "part_index": null,
+                  "text": "Hàng Cá, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 100000, Vietnam\"\n    },\n    {\n      \"place_id\": \"ChIJ2V0f3SopnmAR1zHjHwWp7x0\",\n      \"cid\": \"423869191187880331\",\n      \"title\": \"Phở Gia Truyền Bát Đàn\",\n      \"rating\": \"4.3\",\n      \"review_count\": \"5561\",\n      \"text\": \"An iconic and historic establishment beloved by locals and tourists alike for its authentic Hanoi-style beef phở"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  1
+                ],
+                "segment": {
+                  "start_index": 1088,
+                  "end_index": 1472,
+                  "part_index": null,
+                  "text": "Bát Đàn, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam\"\n    },\n    {\n      \"place_id\": \"ChIJq4jY2CopnmAR0b5f1e8qLg0\",\n      \"cid\": \"840573277241490588\",\n      \"title\": \"Gánh Hà Nội\",\n      \"rating\": \"4.9\",\n      \"review_count\": \"10226\",\n      \"text\": \"A highly-rated destination offering a refined take on classic Vietnamese street food dishes in a comfortable setting"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  2
+                ],
+                "segment": {
+                  "start_index": 1642,
+                  "end_index": 2067,
+                  "part_index": null,
+                  "text": "Hàng Buồm, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam\"\n    },\n    {\n      \"place_id\": \"ChIJT3u-zS0pnmARy7qGZ7u-G64\",\n      \"cid\": \"8227646880567070900\",\n      \"title\": \"Hanoi Weekend Night Market Start Point\",\n      \"rating\": \"4.3\",\n      \"review_count\": \"149\",\n      \"text\": \"The primary entrance to the vibrant weekend market scene where travelers can experience a wide variety of street snacks and souvenirs"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  3
+                ],
+                "segment": {
+                  "start_index": 2211,
+                  "end_index": 2580,
+                  "part_index": null,
+                  "text": "Hàng Đào, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam\"\n    },\n    {\n      \"place_id\": \"ChIJ27dKwy0pnmAR7Z9g9QjK3Wk\",\n      \"cid\": \"12166938503751067978\",\n      \"title\": \"Bánh Bao Bình Mỗ\",\n      \"rating\": \"4.8\",\n      \"review_count\": \"773\",\n      \"text\": \"A popular local spot recognized for its delicious steamed buns and traditional Vietnamese bites"
+                },
+                "rendered_parts": null
+              }
+            ],
+            "retrieval_metadata": null,
+            "search_entry_point": null,
+            "web_search_queries": null,
+            "google_maps_widget_context_token": null,
+            "retrieval_queries": [
+              "best street food spots and markets in Hanoi 2026"
+            ],
+            "source_flagging_uris": null
+          },
+          "avg_logprobs": null,
+          "index": null,
+          "logprobs_result": null,
+          "safety_ratings": null,
+          "url_context_metadata": null
+        }
+      ],
+      "create_time": "2026-06-23T00:47:19.935862Z",
+      "model_version": "gemini-3.1-flash-lite-preview",
+      "prompt_feedback": null,
+      "response_id": "l9c5araPOfTcsbwPyZOvsQ4",
+      "usage_metadata": {
+        "cache_tokens_details": null,
+        "cached_content_token_count": null,
+        "candidates_token_count": 1125,
+        "candidates_tokens_details": [
+          {
+            "modality": "TEXT",
+            "token_count": 1125
+          }
+        ],
+        "prompt_token_count": 413,
+        "prompt_tokens_details": [
+          {
+            "modality": "TEXT",
+            "token_count": 413
+          }
+        ],
+        "thoughts_token_count": 289,
+        "tool_use_prompt_token_count": null,
+        "tool_use_prompt_tokens_details": null,
+        "total_token_count": 1827,
+        "traffic_type": "ON_DEMAND"
+      },
+      "model_status": null,
+      "automatic_function_calling_history": [],
+      "parsed": {
+        "places": [
+          {
+            "place_id": "ChIJb_f56y0pnmARy9c03V2Kz1o",
+            "cid": "17004396853142544051",
+            "title": "Banh Mi 25",
+            "rating": "4.4",
+            "review_count": "16806",
+            "text": "A world-renowned sandwich shop in the heart of the Old Quarter, famous for its extensive menu of traditional and modern Vietnamese baguettes [1.1.2].",
+            "place_type": "Sandwich Shop",
+            "opening_hours": "Monday-Sunday: 7:00 AM – 9:00 PM",
+            "entry_price": "Inexpensive",
+            "address": "25 P. Hàng Cá, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 100000, Vietnam"
+          },
+          {
+            "place_id": "ChIJ2V0f3SopnmAR1zHjHwWp7x0",
+            "cid": "423869191187880331",
+            "title": "Phở Gia Truyền Bát Đàn",
+            "rating": "4.3",
+            "review_count": "5561",
+            "text": "An iconic and historic establishment beloved by locals and tourists alike for its authentic Hanoi-style beef phở.",
+            "place_type": "Restaurant",
+            "opening_hours": "Monday-Sunday: 6:00–11:00 AM, 5:00–9:30 PM",
+            "entry_price": "Inexpensive",
+            "address": "49 P. Bát Đàn, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam"
+          },
+          {
+            "place_id": "ChIJq4jY2CopnmAR0b5f1e8qLg0",
+            "cid": "840573277241490588",
+            "title": "Gánh Hà Nội",
+            "rating": "4.9",
+            "review_count": "10226",
+            "text": "A highly-rated destination offering a refined take on classic Vietnamese street food dishes in a comfortable setting.",
+            "place_type": "Vietnamese Restaurant",
+            "opening_hours": "Monday-Sunday: 10:00 AM – 11:00 PM",
+            "entry_price": "Moderate",
+            "address": "115 P. Hàng Buồm, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam"
+          },
+          {
+            "place_id": "ChIJT3u-zS0pnmARy7qGZ7u-G64",
+            "cid": "8227646880567070900",
+            "title": "Hanoi Weekend Night Market Start Point",
+            "rating": "4.3",
+            "review_count": "149",
+            "text": "The primary entrance to the vibrant weekend market scene where travelers can experience a wide variety of street snacks and souvenirs.",
+            "place_type": "Market",
+            "opening_hours": "Friday-Sunday: 6:00–11:00 PM",
+            "entry_price": "N/A",
+            "address": "104 P. Hàng Đào, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam"
+          },
+          {
+            "place_id": "ChIJ27dKwy0pnmAR7Z9g9QjK3Wk",
+            "cid": "12166938503751067978",
+            "title": "Bánh Bao Bình Mỗ",
+            "rating": "4.8",
+            "review_count": "773",
+            "text": "A popular local spot recognized for its delicious steamed buns and traditional Vietnamese bites.",
+            "place_type": "Family Restaurant",
+            "opening_hours": "Monday-Sunday: 7:00 AM – 10:00 PM",
+            "entry_price": "N/A",
+            "address": "10 P. Quán Sứ, Hoàn Kiếm, Hà Nội 100000, Vietnam"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "model": "gemini-3.1-flash-lite",
+    "effort": "low",
+    "query": "Best street food spots and street food markets in Hanoi",
+    "iteration": 0,
+    "timestamp": 1782175638.476682,
+    "success": true,
+    "raw_response": {
+      "sdk_http_response": {
+        "headers": {
+          "content-type": "application/json; charset=UTF-8",
+          "vary": "Origin, X-Origin, Referer",
+          "content-encoding": "gzip",
+          "date": "Tue, 23 Jun 2026 00:47:27 GMT",
+          "server": "scaffolding on HTTPServer2",
+          "x-xss-protection": "0",
+          "x-frame-options": "SAMEORIGIN",
+          "x-content-type-options": "nosniff",
+          "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+          "transfer-encoding": "chunked"
+        },
+        "body": null
+      },
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "media_resolution": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "file_data": null,
+                "function_call": null,
+                "function_response": null,
+                "inline_data": null,
+                "text": "{\n  \"places\": [\n    {\n      \"place_id\": \"9108413969528951015\",\n      \"cid\": \"9108413969528951015\",\n      \"title\": \"Bún chả Hương Liên\",\n      \"rating\": \"4.1\",\n      \"review_count\": \"12106\",\n      \"text\": \"Acclaimed eatery serving traditional noodles & grilled meat plates in a calm, no-frills space [1.1.1].\",\n      \"place_type\": \"Vietnamese Restaurant\",\n      \"opening_hours\": \"Monday-Sunday: 8:00 AM - 8:00 PM\",\n      \"entry_price\": \"Moderate\",\n      \"address\": \"24 P. Lê Văn Hưu, Cửa Nam, Hà Nội, Vietnam\"\n    },\n    {\n      \"place_id\": \"17004396853142544051\",\n      \"cid\": \"17004396853142544051\",\n      \"title\": \"Banh Mi 25\",\n      \"rating\": \"4.4\",\n      \"review_count\": \"16806\",\n      \"text\": \"Extensive sandwich menu offered at a popular stall with a simple seating area across the road.\",\n      \"place_type\": \"Sandwich Shop\",\n      \"opening_hours\": \"Monday-Sunday: 7:00 AM - 9:00 PM\",\n      \"entry_price\": \"Inexpensive\",\n      \"address\": \"25 P. Hàng Cá, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 100000, Vietnam\"\n    },\n    {\n      \"place_id\": \"6436514622737634446\",\n      \"cid\": \"6436514622737634446\",\n      \"title\": \"Hanoi Old Quarter\",\n      \"rating\": \"4.6\",\n      \"review_count\": \"9854\",\n      \"text\": \"Historic trading district with a night market, narrow lanes, food hawkers & hotchpotch tube houses.\",\n      \"place_type\": \"Tourist Attraction\",\n      \"opening_hours\": \"Open 24 hours\",\n      \"address\": \"P. Hàng Ngang, Hàng Đào, Hoàn Kiếm, Hà Nội 100000, Vietnam\"\n    },\n    {\n      \"place_id\": \"11585844780342556282\",\n      \"cid\": \"11585844780342556282\",\n      \"title\": \"MẸT Vietnamese Restaurant & Vegetarian Met 2\",\n      \"rating\": \"4.9\",\n      \"review_count\": \"27692\",\n      \"text\": \"Highly rated restaurant serving authentic Vietnamese dishes with extensive vegetarian options.\",\n      \"place_type\": \"Vietnamese Restaurant\",\n      \"opening_hours\": \"Monday-Sunday: 10:00 AM - 10:30 PM\",\n      \"entry_price\": \"Moderate\",\n      \"address\": \"42 P. Lương Văn Can, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 11015, Vietnam\"\n    },\n    {\n      \"place_id\": \"2672331725228036959\",\n      \"cid\": \"2672331725228036959\",\n      \"title\": \"Phở Sướng\",\n      \"rating\": \"4.4\",\n      \"review_count\": \"2295\",\n      \"text\": \"A well-known spot for traditional Pho in the heart of the Old Quarter.\",\n      \"place_type\": \"Restaurant\",\n      \"opening_hours\": \"Monday-Sunday: 5:30 AM - 12:00 PM, 5:00 PM - 9:30 PM\",\n      \"entry_price\": \"Moderate\",\n      \"address\": \"24B Ng. Trung Yên, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam\"\n    },\n    {\n      \"place_id\": \"8227646880567070900\",\n      \"cid\": \"8227646880567070900\",\n      \"title\": \"Hanoi Weekend Night Market Start Point\",\n      \"rating\": \"4.3\",\n      \"review_count\": \"149\",\n      \"text\": \"The entry point for the bustling weekend night market, famous for street food and local crafts.\",\n      \"place_type\": \"Market\",\n      \"opening_hours\": \"Friday-Sunday: 6:00 PM - 11:00 PM\",\n      \"address\": \"104 P. Hàng Đào, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam\"\n    }\n  ]\n}",
+                "thought": null,
+                "thought_signature": "AY89a1-babai9P5PGBcYxAk56x7QYpCTdsJn3qsNX7RbEjetuBznxLfhkOe4jZTumNy_enaksmTbZkEa94A9tYu8j5braMWggLi_SvOjmSWXKkKoNISgEcpUu8uRpxhXNw2AhkgwTvf7sVShAbmq30Zfpy-q3r5vLUHc9j5iwWf3kCS2Ve-__rPpda0QQVxKE_Y5MS5OF7yRxAqBhXLMTZ9T-uHk5sQKvIDj1T0-Qq6UK55uuCwlYlFACoZu-zbgXWhcEz3wnwrVwxMxteh29poixTj3uC-vffWIOAJqgH3vn9L0ZYKRmgt_rh7XjCPzbpjwHartj6_tbHiIozs_AdC-mxU5k3970qp2Ll_MPAi0hDnEfdibvrrzwjgGpy-v5Gl4mye2VcamV30uZK4bOV9btClz_vjXiNDTXznedQpoke1gnhTJDD8dSxjmdAokmvAkPAdq6TOP8-JJ-TVnK6fD6jL1XMw9eQLpklRGCBN9thFyO1llT4sOMRoMWP0okZEOWZhzLbLu__4lhUJx0CTrhFh-KfMGez06-dKY-N1y03BR_fb-qrrFPeD0LMDECqTAF279R-MNrZS6gRy4Qm-FJPpcDAL_sHEpn3DMuGOAJ0-3-F2V6aoDwg2LWxWNmE8tDkNSOfqnhO-d_RRwKCGwPN3qjyYs-d7MY5pWyFgh3BDyYeRqhcmnaGR1-zF2Xng7eyLjUC0kvpciE0NkrhyNkdi2F-HyplOVqhBwa1KZxxPZ7INJbXnwrgj6uVHiyZU_obK1qhJ2bliIgtOL",
+                "video_metadata": null,
+                "tool_call": null,
+                "tool_response": null,
+                "part_metadata": null
+              }
+            ],
+            "role": "model"
+          },
+          "citation_metadata": null,
+          "finish_message": null,
+          "token_count": null,
+          "finish_reason": "STOP",
+          "grounding_metadata": {
+            "image_search_queries": null,
+            "grounding_chunks": [
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJXWi6pPKrNTER55D6MD-WZ34",
+                  "text": null,
+                  "title": "Bún chả Hương Liên",
+                  "uri": "https://maps.google.com/?cid=9108413969528951015",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJtRY3u3SrNTERs95UQ9jA--s",
+                  "text": null,
+                  "title": "Banh Mi 25",
+                  "uri": "https://maps.google.com/?cid=17004396853142544051",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJp0o4Er6rNTERjlTif_IXU1k",
+                  "text": null,
+                  "title": "Hanoi Old Quarter",
+                  "uri": "https://maps.google.com/?cid=6436514622737634446",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJrSnreyyrNTERerYhe3EwyaA",
+                  "text": null,
+                  "title": "MẸT Vietnamese Restaurant & Vegetarian Met 2",
+                  "uri": "https://maps.google.com/?cid=11585844780342556282",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJIUjGf7-rNTERX1M5pIsHFiU",
+                  "text": null,
+                  "title": "Phở Sướng",
+                  "uri": "https://maps.google.com/?cid=2672331725228036959",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              },
+              {
+                "image": null,
+                "maps": {
+                  "place_answer_sources": null,
+                  "place_id": "places/ChIJ3x01HQCrNTERtBCN9T55LnI",
+                  "text": null,
+                  "title": "Hanoi Weekend Night Market Start Point",
+                  "uri": "https://maps.google.com/?cid=8227646880567070900",
+                  "route": null
+                },
+                "retrieved_context": null,
+                "web": null
+              }
+            ],
+            "grounding_supports": [
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  0
+                ],
+                "segment": {
+                  "start_index": null,
+                  "end_index": 417,
+                  "part_index": null,
+                  "text": "{\n  \"places\": [\n    {\n      \"place_id\": \"9108413969528951015\",\n      \"cid\": \"9108413969528951015\",\n      \"title\": \"Bún chả Hương Liên\",\n      \"rating\": \"4.1\",\n      \"review_count\": \"12106\",\n      \"text\": \"Acclaimed eatery serving traditional noodles & grilled meat plates in a calm, no-frills space [1.1.1].\",\n      \"place_type\": \"Vietnamese Restaurant\",\n      \"opening_hours\": \"Monday-Sunday: 8:00 AM - 8:00 PM"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  0
+                ],
+                "segment": {
+                  "start_index": null,
+                  "end_index": 450,
+                  "part_index": null,
+                  "text": "{\n  \"places\": [\n    {\n      \"place_id\": \"9108413969528951015\",\n      \"cid\": \"9108413969528951015\",\n      \"title\": \"Bún chả Hương Liên\",\n      \"rating\": \"4.1\",\n      \"review_count\": \"12106\",\n      \"text\": \"Acclaimed eatery serving traditional noodles & grilled meat plates in a calm, no-frills space [1.1.1].\",\n      \"place_type\": \"Vietnamese Restaurant\",\n      \"opening_hours\": \"Monday-Sunday: 8:00 AM - 8:00 PM\",\n      \"entry_price\": \"Moderate"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  0
+                ],
+                "segment": {
+                  "start_index": 477,
+                  "end_index": 521,
+                  "part_index": null,
+                  "text": "Lê Văn Hưu, Cửa Nam, Hà Nội, Vietnam"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  1
+                ],
+                "segment": {
+                  "start_index": 477,
+                  "end_index": 806,
+                  "part_index": null,
+                  "text": "Lê Văn Hưu, Cửa Nam, Hà Nội, Vietnam\"\n    },\n    {\n      \"place_id\": \"17004396853142544051\",\n      \"cid\": \"17004396853142544051\",\n      \"title\": \"Banh Mi 25\",\n      \"rating\": \"4.4\",\n      \"review_count\": \"16806\",\n      \"text\": \"Extensive sandwich menu offered at a popular stall with a simple seating area across the road"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  1
+                ],
+                "segment": {
+                  "start_index": 477,
+                  "end_index": 903,
+                  "part_index": null,
+                  "text": "Lê Văn Hưu, Cửa Nam, Hà Nội, Vietnam\"\n    },\n    {\n      \"place_id\": \"17004396853142544051\",\n      \"cid\": \"17004396853142544051\",\n      \"title\": \"Banh Mi 25\",\n      \"rating\": \"4.4\",\n      \"review_count\": \"16806\",\n      \"text\": \"Extensive sandwich menu offered at a popular stall with a simple seating area across the road.\",\n      \"place_type\": \"Sandwich Shop\",\n      \"opening_hours\": \"Monday-Sunday: 7:00 AM - 9:00 PM"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  1
+                ],
+                "segment": {
+                  "start_index": 477,
+                  "end_index": 939,
+                  "part_index": null,
+                  "text": "Lê Văn Hưu, Cửa Nam, Hà Nội, Vietnam\"\n    },\n    {\n      \"place_id\": \"17004396853142544051\",\n      \"cid\": \"17004396853142544051\",\n      \"title\": \"Banh Mi 25\",\n      \"rating\": \"4.4\",\n      \"review_count\": \"16806\",\n      \"text\": \"Extensive sandwich menu offered at a popular stall with a simple seating area across the road.\",\n      \"place_type\": \"Sandwich Shop\",\n      \"opening_hours\": \"Monday-Sunday: 7:00 AM - 9:00 PM\",\n      \"entry_price\": \"Inexpensive"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  1
+                ],
+                "segment": {
+                  "start_index": 966,
+                  "end_index": 1038,
+                  "part_index": null,
+                  "text": "Hàng Cá, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 100000, Vietnam"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  2
+                ],
+                "segment": {
+                  "start_index": 966,
+                  "end_index": 1332,
+                  "part_index": null,
+                  "text": "Hàng Cá, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 100000, Vietnam\"\n    },\n    {\n      \"place_id\": \"6436514622737634446\",\n      \"cid\": \"6436514622737634446\",\n      \"title\": \"Hanoi Old Quarter\",\n      \"rating\": \"4.6\",\n      \"review_count\": \"9854\",\n      \"text\": \"Historic trading district with a night market, narrow lanes, food hawkers & hotchpotch tube houses"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  2
+                ],
+                "segment": {
+                  "start_index": 966,
+                  "end_index": 1415,
+                  "part_index": null,
+                  "text": "Hàng Cá, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 100000, Vietnam\"\n    },\n    {\n      \"place_id\": \"6436514622737634446\",\n      \"cid\": \"6436514622737634446\",\n      \"title\": \"Hanoi Old Quarter\",\n      \"rating\": \"4.6\",\n      \"review_count\": \"9854\",\n      \"text\": \"Historic trading district with a night market, narrow lanes, food hawkers & hotchpotch tube houses.\",\n      \"place_type\": \"Tourist Attraction\",\n      \"opening_hours\": \"Open 24 hours"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  2
+                ],
+                "segment": {
+                  "start_index": 1439,
+                  "end_index": 1504,
+                  "part_index": null,
+                  "text": "Hàng Ngang, Hàng Đào, Hoàn Kiếm, Hà Nội 100000, Vietnam"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  3
+                ],
+                "segment": {
+                  "start_index": 1439,
+                  "end_index": 1825,
+                  "part_index": null,
+                  "text": "Hàng Ngang, Hàng Đào, Hoàn Kiếm, Hà Nội 100000, Vietnam\"\n    },\n    {\n      \"place_id\": \"11585844780342556282\",\n      \"cid\": \"11585844780342556282\",\n      \"title\": \"MẸT Vietnamese Restaurant & Vegetarian Met 2\",\n      \"rating\": \"4.9\",\n      \"review_count\": \"27692\",\n      \"text\": \"Highly rated restaurant serving authentic Vietnamese dishes with extensive vegetarian options"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  3
+                ],
+                "segment": {
+                  "start_index": 1439,
+                  "end_index": 1932,
+                  "part_index": null,
+                  "text": "Hàng Ngang, Hàng Đào, Hoàn Kiếm, Hà Nội 100000, Vietnam\"\n    },\n    {\n      \"place_id\": \"11585844780342556282\",\n      \"cid\": \"11585844780342556282\",\n      \"title\": \"MẸT Vietnamese Restaurant & Vegetarian Met 2\",\n      \"rating\": \"4.9\",\n      \"review_count\": \"27692\",\n      \"text\": \"Highly rated restaurant serving authentic Vietnamese dishes with extensive vegetarian options.\",\n      \"place_type\": \"Vietnamese Restaurant\",\n      \"opening_hours\": \"Monday-Sunday: 10:00 AM - 10:30 PM"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  3
+                ],
+                "segment": {
+                  "start_index": 1439,
+                  "end_index": 1965,
+                  "part_index": null,
+                  "text": "Hàng Ngang, Hàng Đào, Hoàn Kiếm, Hà Nội 100000, Vietnam\"\n    },\n    {\n      \"place_id\": \"11585844780342556282\",\n      \"cid\": \"11585844780342556282\",\n      \"title\": \"MẸT Vietnamese Restaurant & Vegetarian Met 2\",\n      \"rating\": \"4.9\",\n      \"review_count\": \"27692\",\n      \"text\": \"Highly rated restaurant serving authentic Vietnamese dishes with extensive vegetarian options.\",\n      \"place_type\": \"Vietnamese Restaurant\",\n      \"opening_hours\": \"Monday-Sunday: 10:00 AM - 10:30 PM\",\n      \"entry_price\": \"Moderate"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  3
+                ],
+                "segment": {
+                  "start_index": 1992,
+                  "end_index": 2070,
+                  "part_index": null,
+                  "text": "Lương Văn Can, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 11015, Vietnam"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  4
+                ],
+                "segment": {
+                  "start_index": 1992,
+                  "end_index": 2332,
+                  "part_index": null,
+                  "text": "Lương Văn Can, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 11015, Vietnam\"\n    },\n    {\n      \"place_id\": \"2672331725228036959\",\n      \"cid\": \"2672331725228036959\",\n      \"title\": \"Phở Sướng\",\n      \"rating\": \"4.4\",\n      \"review_count\": \"2295\",\n      \"text\": \"A well-known spot for traditional Pho in the heart of the Old Quarter"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  4
+                ],
+                "segment": {
+                  "start_index": 1992,
+                  "end_index": 2446,
+                  "part_index": null,
+                  "text": "Lương Văn Can, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 11015, Vietnam\"\n    },\n    {\n      \"place_id\": \"2672331725228036959\",\n      \"cid\": \"2672331725228036959\",\n      \"title\": \"Phở Sướng\",\n      \"rating\": \"4.4\",\n      \"review_count\": \"2295\",\n      \"text\": \"A well-known spot for traditional Pho in the heart of the Old Quarter.\",\n      \"place_type\": \"Restaurant\",\n      \"opening_hours\": \"Monday-Sunday: 5:30 AM - 12:00 PM, 5:00 PM - 9:30 PM"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  4
+                ],
+                "segment": {
+                  "start_index": 1992,
+                  "end_index": 2479,
+                  "part_index": null,
+                  "text": "Lương Văn Can, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 11015, Vietnam\"\n    },\n    {\n      \"place_id\": \"2672331725228036959\",\n      \"cid\": \"2672331725228036959\",\n      \"title\": \"Phở Sướng\",\n      \"rating\": \"4.4\",\n      \"review_count\": \"2295\",\n      \"text\": \"A well-known spot for traditional Pho in the heart of the Old Quarter.\",\n      \"place_type\": \"Restaurant\",\n      \"opening_hours\": \"Monday-Sunday: 5:30 AM - 12:00 PM, 5:00 PM - 9:30 PM\",\n      \"entry_price\": \"Moderate"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  4
+                ],
+                "segment": {
+                  "start_index": 2508,
+                  "end_index": 2574,
+                  "part_index": null,
+                  "text": "Trung Yên, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  5
+                ],
+                "segment": {
+                  "start_index": 2508,
+                  "end_index": 2884,
+                  "part_index": null,
+                  "text": "Trung Yên, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam\"\n    },\n    {\n      \"place_id\": \"8227646880567070900\",\n      \"cid\": \"8227646880567070900\",\n      \"title\": \"Hanoi Weekend Night Market Start Point\",\n      \"rating\": \"4.3\",\n      \"review_count\": \"149\",\n      \"text\": \"The entry point for the bustling weekend night market, famous for street food and local crafts"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  5
+                ],
+                "segment": {
+                  "start_index": 2508,
+                  "end_index": 2975,
+                  "part_index": null,
+                  "text": "Trung Yên, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam\"\n    },\n    {\n      \"place_id\": \"8227646880567070900\",\n      \"cid\": \"8227646880567070900\",\n      \"title\": \"Hanoi Weekend Night Market Start Point\",\n      \"rating\": \"4.3\",\n      \"review_count\": \"149\",\n      \"text\": \"The entry point for the bustling weekend night market, famous for street food and local crafts.\",\n      \"place_type\": \"Market\",\n      \"opening_hours\": \"Friday-Sunday: 6:00 PM - 11:00 PM"
+                },
+                "rendered_parts": null
+              },
+              {
+                "confidence_scores": null,
+                "grounding_chunk_indices": [
+                  5
+                ],
+                "segment": {
+                  "start_index": 3003,
+                  "end_index": 3070,
+                  "part_index": null,
+                  "text": "Hàng Đào, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam"
+                },
+                "rendered_parts": null
+              }
+            ],
+            "retrieval_metadata": null,
+            "search_entry_point": null,
+            "web_search_queries": null,
+            "google_maps_widget_context_token": null,
+            "retrieval_queries": [
+              "popular street food streets in Hanoi",
+              "best street food spots and markets in Hanoi 2026",
+              "Bun Cha Huong Lien Hanoi",
+              "Banh Mi 25 Hanoi"
+            ],
+            "source_flagging_uris": null
+          },
+          "avg_logprobs": null,
+          "index": null,
+          "logprobs_result": null,
+          "safety_ratings": null,
+          "url_context_metadata": null
+        }
+      ],
+      "create_time": "2026-06-23T00:47:19.950002Z",
+      "model_version": "gemini-3.1-flash-lite",
+      "prompt_feedback": null,
+      "response_id": "l9c5avL9ObrhsbwPt7GemQE",
+      "usage_metadata": {
+        "cache_tokens_details": null,
+        "cached_content_token_count": null,
+        "candidates_token_count": 1404,
+        "candidates_tokens_details": [
+          {
+            "modality": "TEXT",
+            "token_count": 1404
+          }
+        ],
+        "prompt_token_count": 413,
+        "prompt_tokens_details": [
+          {
+            "modality": "TEXT",
+            "token_count": 413
+          }
+        ],
+        "thoughts_token_count": 248,
+        "tool_use_prompt_token_count": null,
+        "tool_use_prompt_tokens_details": null,
+        "total_token_count": 2065,
+        "traffic_type": "ON_DEMAND"
+      },
+      "model_status": null,
+      "automatic_function_calling_history": [],
+      "parsed": {
+        "places": [
+          {
+            "place_id": "9108413969528951015",
+            "cid": "9108413969528951015",
+            "title": "Bún chả Hương Liên",
+            "rating": "4.1",
+            "review_count": "12106",
+            "text": "Acclaimed eatery serving traditional noodles & grilled meat plates in a calm, no-frills space [1.1.1].",
+            "place_type": "Vietnamese Restaurant",
+            "opening_hours": "Monday-Sunday: 8:00 AM - 8:00 PM",
+            "entry_price": "Moderate",
+            "address": "24 P. Lê Văn Hưu, Cửa Nam, Hà Nội, Vietnam"
+          },
+          {
+            "place_id": "17004396853142544051",
+            "cid": "17004396853142544051",
+            "title": "Banh Mi 25",
+            "rating": "4.4",
+            "review_count": "16806",
+            "text": "Extensive sandwich menu offered at a popular stall with a simple seating area across the road.",
+            "place_type": "Sandwich Shop",
+            "opening_hours": "Monday-Sunday: 7:00 AM - 9:00 PM",
+            "entry_price": "Inexpensive",
+            "address": "25 P. Hàng Cá, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 100000, Vietnam"
+          },
+          {
+            "place_id": "6436514622737634446",
+            "cid": "6436514622737634446",
+            "title": "Hanoi Old Quarter",
+            "rating": "4.6",
+            "review_count": "9854",
+            "text": "Historic trading district with a night market, narrow lanes, food hawkers & hotchpotch tube houses.",
+            "place_type": "Tourist Attraction",
+            "opening_hours": "Open 24 hours",
+            "address": "P. Hàng Ngang, Hàng Đào, Hoàn Kiếm, Hà Nội 100000, Vietnam"
+          },
+          {
+            "place_id": "11585844780342556282",
+            "cid": "11585844780342556282",
+            "title": "MẸT Vietnamese Restaurant & Vegetarian Met 2",
+            "rating": "4.9",
+            "review_count": "27692",
+            "text": "Highly rated restaurant serving authentic Vietnamese dishes with extensive vegetarian options.",
+            "place_type": "Vietnamese Restaurant",
+            "opening_hours": "Monday-Sunday: 10:00 AM - 10:30 PM",
+            "entry_price": "Moderate",
+            "address": "42 P. Lương Văn Can, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 11015, Vietnam"
+          },
+          {
+            "place_id": "2672331725228036959",
+            "cid": "2672331725228036959",
+            "title": "Phở Sướng",
+            "rating": "4.4",
+            "review_count": "2295",
+            "text": "A well-known spot for traditional Pho in the heart of the Old Quarter.",
+            "place_type": "Restaurant",
+            "opening_hours": "Monday-Sunday: 5:30 AM - 12:00 PM, 5:00 PM - 9:30 PM",
+            "entry_price": "Moderate",
+            "address": "24B Ng. Trung Yên, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam"
+          },
+          {
+            "place_id": "8227646880567070900",
+            "cid": "8227646880567070900",
+            "title": "Hanoi Weekend Night Market Start Point",
+            "rating": "4.3",
+            "review_count": "149",
+            "text": "The entry point for the bustling weekend night market, famous for street food and local crafts.",
+            "place_type": "Market",
+            "opening_hours": "Friday-Sunday: 6:00 PM - 11:00 PM",
+            "address": "104 P. Hàng Đào, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam"
+          }
+        ]
+      }
+    }
+  }
+]
