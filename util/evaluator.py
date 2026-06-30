@@ -14,7 +14,8 @@ from rapidfuzz import fuzz
 load_dotenv()
 
 # Configuration (Defaults)
-DEFAULT_MODELS = ["gemini-3.1-flash-lite-preview", "gemini-3.1-flash-lite"]
+# DEFAULT_MODELS = ["gemini-3.1-flash-lite-preview", "gemini-3.1-flash-lite"]
+DEFAULT_MODELS = ["gemini-3.1-flash-lite"]
 DEFAULT_EFFORT = "low"
 PROJECT_ID = os.getenv("PROJECT_ID")
 LOCATION = os.getenv("LOCATION")
@@ -69,6 +70,20 @@ CRITICAL RULES:
 2. You MUST use Google Maps search queries to discover places and retrieve their current details.
 3. All ratings, review counts, and addresses in your final JSON response must match the Google Maps grounding results exactly.
 4. End each claim with a citation like [1] even if it is within JSON.
+"""
+
+SYSTEM_INSTRUCTION2 = """
+You are a Point-of-Interest discovering agent.
+Your parametric memory and training data regarding candidate places, addresses, ratings, and opening hours are considered OUTDATED and STALE.
+
+MANDATORY:
+1. You are FORBIDDEN from listing any place purely from your training data.
+2. You MUST use Google Maps search queries to discover places and retrieve their current details.
+3. All ratings, review counts, and addresses in your final JSON response must match the Google Maps grounding results exactly.
+
+PROCESS (single response, two parts):
+PART A - "cited_text": Write one sentence about EVERY place you found, and END EACH SENTENCE WITH A CITATION MARKER like [N] that points to the Google Maps grounding chunk for that place. Cover ALL grounded places here - this is REQUIRED and is what produces grounding. Mention each place by its exact name immediately before its [N] marker.
+PART B - "places": Output one entry per place mentioned in cited_text, as clean structured data copied from the grounding results. Every place in cited_text MUST also appear in the places array, in the grounding chunks and the title must match the exact title in the grounding chunks. Copy each title VERBATIM, character-for-character, from the grounding chunk - including any typos or misspellings. Do NOT correct, fix, or alter the spelling of any title.
 """
 
 # Verification functions query_place_details and verify_places have been moved to verifier.py
@@ -166,7 +181,7 @@ def run_evaluation(output_file, repetitions, models, effort, queries, workers=5)
                     thinking_config=types.ThinkingConfig(
                         thinking_level=effort.upper()
                     ),
-                    system_instruction=SYSTEM_INSTRUCTION,
+                    system_instruction=SYSTEM_INSTRUCTION2,
                     response_mime_type="application/json",
                     response_schema=SCHEMA
                 )

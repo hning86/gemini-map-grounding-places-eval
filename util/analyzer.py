@@ -98,6 +98,7 @@ def analyze_results(input_file, output_report):
                 "effort": row["effort"],
                 "query": row["query"],
                 "iteration": row["iteration"],
+                "timestamp": row.get("timestamp"),
                 "title": p.get("title"),
                 "generated_place_id": p.get("generated_place_id"),
                 "generated_cid": p.get("generated_cid"),
@@ -247,18 +248,20 @@ def analyze_results(input_file, output_report):
                 "model", "generated_place_id", "generated_cid", "grounded_place_id",
                 "grounding_name", "title", 
                 "retrieved_name_place_id", "retrieved_name_grounded_place_id", "retrieved_name_cid",
-                "verified_place_id", "verified_grounded_place_id", "verified_cid", "matching_ids", "verified"
+                "verified_place_id", "verified_grounded_place_id", "verified_cid", "matching_ids", "verified",
+                "timestamp"
             ]].drop_duplicates().copy()
             
-            # Sort registry by model and name
-            df_unique_places = df_unique_places.sort_values(by=["model", "title"]).reset_index(drop=True)
+            # Sort registry by timestamp
+            df_unique_places = df_unique_places.sort_values(by="timestamp").reset_index(drop=True)
             
             registry_headers = [
-                "Model", "Generated Place ID", "Grounded Place ID", "Generated CID", 
+                "Model", "Timestamp", "Generated Place ID", "Grounded Place ID", "Generated CID", 
                 "Gemini Name", "Grounding Name", "Resolved Name (API)", 
                 "Gen PID Valid?", "Grounded PID Valid?", "CID Valid?", "Match?"
             ]
             registry_rows = []
+            import datetime
             for _, r in df_unique_places.iterrows():
                 resolved_name = r["retrieved_name_cid"] if r["retrieved_name_cid"] else (r["retrieved_name_grounded_place_id"] if r["retrieved_name_grounded_place_id"] else (r["retrieved_name_place_id"] if r["retrieved_name_place_id"] else "N/A"))
                 pid_valid_str = "✅ Yes" if r["verified_place_id"] else "❌ No"
@@ -287,8 +290,19 @@ def analyze_results(input_file, output_report):
                 
                 grounding_name_str = r["grounding_name"] if pd.notna(r["grounding_name"]) and r["grounding_name"] else "N/A"
                 
+                # Format timestamp human-readably
+                ts_val = r["timestamp"]
+                if pd.notna(ts_val):
+                    try:
+                        ts_str = datetime.datetime.fromtimestamp(float(ts_val)).strftime("%Y-%m-%d %H:%M:%S")
+                    except Exception:
+                        ts_str = str(ts_val)
+                else:
+                    ts_str = "N/A"
+                
                 registry_rows.append([
                     sanitize_md_cell(r["model"]),
+                    sanitize_md_cell(ts_str),
                     sanitize_md_cell(pid_display),
                     sanitize_md_cell(gpid_display),
                     sanitize_md_cell(cid_display),
