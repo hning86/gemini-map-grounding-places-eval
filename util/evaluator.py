@@ -33,6 +33,34 @@ QUERIES = [
 ]
 
 # JSON Schema for controlled generation (Stage A)
+SCHEMA_OLD = {
+    "type": "object",
+    "properties": {
+        "places": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "place_id":       {"type": "string"},
+                    "cid":            {"type": "string"},
+                    "title":          {"type": "string"},
+                    "rating":         {"type": "string"},
+                    "review_count":   {"type": "string"},
+                    "text":           {"type": "string"},
+                    "place_type":     {"type": "string"},
+                    "opening_hours":  {"type": "string"},
+                    "entry_price":    {"type": "string"},
+                    "address":        {"type": "string"}
+                },
+                "required": ["place_id", "cid", "title", "rating", "review_count", "text"],
+                "additionalProperties": False
+            }
+        }
+    },
+    "required": ["places"],
+    "additionalProperties": False
+}
+
 SCHEMA = {
     "type": "object",
     "properties": {
@@ -61,7 +89,8 @@ SCHEMA = {
     "additionalProperties": False
 }
 
-SYSTEM_INSTRUCTION = """
+
+SYSTEM_INSTRUCTION_OLD = """
 You are a Point-of-Interest discovering agent.
 Your parametric memory and training data regarding candidate places, addresses, ratings, and opening hours are considered OUTDATED and STALE.
 
@@ -72,7 +101,7 @@ CRITICAL RULES:
 4. End each claim with a citation like [1] even if it is within JSON.
 """
 
-SYSTEM_INSTRUCTION2 = """
+SYSTEM_INSTRUCTION = """
 You are a Point-of-Interest discovering agent.
 Your parametric memory and training data regarding candidate places, addresses, ratings, and opening hours are considered OUTDATED and STALE.
 
@@ -181,7 +210,7 @@ def run_evaluation(output_file, repetitions, models, effort, queries, workers=5)
                     thinking_config=types.ThinkingConfig(
                         thinking_level=effort.upper()
                     ),
-                    system_instruction=SYSTEM_INSTRUCTION2,
+                    system_instruction=SYSTEM_INSTRUCTION,
                     response_mime_type="application/json",
                     response_schema=SCHEMA
                 )
