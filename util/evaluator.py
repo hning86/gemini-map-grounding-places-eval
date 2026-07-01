@@ -14,8 +14,8 @@ from rapidfuzz import fuzz
 load_dotenv()
 
 # Configuration (Defaults)
-# DEFAULT_MODELS = ["gemini-3.1-flash-lite-preview", "gemini-3.1-flash-lite"]
-DEFAULT_MODELS = ["gemini-3.1-flash-lite"]
+DEFAULT_MODELS = ["gemini-3.1-flash-lite-preview", "gemini-3.1-flash-lite"]
+# DEFAULT_MODELS = ["gemini-3.1-flash-lite"]
 DEFAULT_EFFORT = "low"
 PROJECT_ID = os.getenv("PROJECT_ID")
 LOCATION = os.getenv("LOCATION")
@@ -64,13 +64,12 @@ SCHEMA_OLD = {
 SCHEMA = {
     "type": "object",
     "properties": {
+        "cited_text": {"type": "string"},
         "places": {
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
-                    "place_id":       {"type": "string"},
-                    "cid":            {"type": "string"},
                     "title":          {"type": "string"},
                     "rating":         {"type": "string"},
                     "review_count":   {"type": "string"},
@@ -80,12 +79,12 @@ SCHEMA = {
                     "entry_price":    {"type": "string"},
                     "address":        {"type": "string"}
                 },
-                "required": ["place_id", "cid", "title", "rating", "review_count", "text"],
+                "required": ["title", "text"],
                 "additionalProperties": False
             }
         }
     },
-    "required": ["places"],
+    "required": ["cited_text", "places"],
     "additionalProperties": False
 }
 
