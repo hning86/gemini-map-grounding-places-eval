@@ -8,23 +8,21 @@ This project is a 2-stage Point-of-Interest (POI) discovery and verification eva
 
 Here is the consolidated metrics summary from the latest full evaluation run:
 
-| Model | Runs | Avg Gemini Call (s) | Avg Places API Call (s) | Grounded Rate (%) | Total Places | Gen PlaceID Verif (%) | Grounded PlaceID Verif (%) | CID Verif (%) |
-|---|---|---|---|---|---|---|---|---|
-| **gemini-3.1-flash-lite** | 25 | 7.16s | 1.54s | 88.00% | 138 | 18.12% | 78.26% | 100.00% |
-| **gemini-3.1-flash-lite-preview** | 25 | 6.76s | 1.40s | 100.00% | 127 | 38.58% | 100.00% | 100.00% |
+| Model                             |   Runs | Avg Gemini Call (s)   | Avg Places API Call (s)   | Grounded Rate (%)   |   Total Places | Gen PlaceID Verif (%)   | Grounded PlaceID Verif (%)   | CID Verif (%)   |
+|-----------------------------------|--------|-----------------------|---------------------------|---------------------|----------------|-------------------------|------------------------------|-----------------|
+| **gemini-3.1-flash-lite**         |     25 | 7.91s                 | 0.48s                     | 100.00%             |            169 | 0.00%                   | 100.00%                      | 0.00%           |
+| **gemini-3.1-flash-lite-preview** |     25 | 8.17s                 | 0.45s                     | 100.00%             |            151 | 0.00%                   | 100.00%                      | 0.00%           |
 
 For the complete place-by-place validation registries, see the [Full Evaluation Report](reports/full_evaluation_report.md).
 
 ### 💡 Key Technical Insights
 
-* **`gemini-3.1-flash-lite` Grounding Payloads**: 
-  In earlier versions, the stable `gemini-3.1-flash-lite` model returned a `0.00% Grounded Rate` under structured JSON schemas due to API payload omissions. In the latest run, the stable model achieves an **`88.00% Grounded Rate`**, successfully returning grounding metadata chunks. However, there is still a significant gap: while the *grounded* Place IDs are highly accurate (**`78.26%`** verification), the model's *generated* Place IDs in the JSON schema only verify **`18.12%`** of the time, showing that the model still frequently fabricates or fails to copy the grounding IDs into its structured response.
+* **`100.00%` Grounding & Verification via Maps Metadata**: 
+  In the latest run under the updated schema, both `gemini-3.1-flash-lite` and `gemini-3.1-flash-lite-preview` achieve a **`100.00% Grounded Rate`** and a **`100.00% Grounded Place ID Verification Rate`**, successfully returning live search grounding metadata chunks whose extracted Place IDs resolve accurately against the Google Places API.
 
-* **Place ID vs. CID Output Paradox**:
-  * **The Schema Paradox**: Even when the JSON output schema explicitly requests **both** a `PlaceId` (alphanumeric strings starting with `ChI...`) and a `CID` (64-bit numeric Customer IDs), the model's behavior confirms that it has access to CIDs but completely lacks Place IDs in its grounding search context. 
-  * **100% Valid CIDs**: These returned numeric CIDs are **100% valid** across all tested models and resolve successfully to the correct POIs via the legacy Details API.
-  * **Fabricated Alphanumeric PlaceIDs**: While CIDs are real and valid, the model **frequently fabricates/hallucinates alphanumeric PlaceIDs** when copying them into the schema. For example, even with `gemini-3.1-flash-lite-preview`, which has a **`100.00%`** Grounded Place ID verification rate, the generated Place IDs are only valid **`38.58%`** of the time.
-  * **0% Match Rate Explained**: Across all evaluated places, **not a single generated PlaceID matched the true canonical PlaceID returned by the CID lookup** (`0` matching IDs). When the model did generate a realistic alphanumeric `PlaceId` (e.g., `ChI...`), it was either invalid or pointed to a completely different place, demonstrating that the models are completely incapable of retrieving correct alphanumeric Place IDs.
+* **Streamlined Schema & ID Verification**:
+  * **Schema Without ID Hallucination Risk**: When `place_id` and `cid` fields are omitted from the generation output schema (`SCHEMA`), `Gen PlaceID Verif (%)` and `CID Verif (%)` measure `0.00%` as the model no longer attempts to output IDs inside its generated JSON payload.
+  * **Historical Place ID vs. CID Output Paradox**: When schemas explicitly required generated IDs (`place_id` and `cid`), models consistently generated **`100%` valid numeric CIDs** but frequently hallucinated or fabricated alphanumeric Place IDs (matching `0%` of canonical IDs). Relying directly on Google Maps Grounding metadata chunks (`Grounded PlaceID Verif: 100.00%`) completely bypasses model ID hallucination inside structured JSON generation.
 
 ---
 
