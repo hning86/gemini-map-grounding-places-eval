@@ -14,7 +14,7 @@ from rapidfuzz import fuzz
 load_dotenv()
 
 # Configuration (Defaults)
-DEFAULT_MODELS = ["gemini-3.1-flash-lite-preview", "gemini-3.1-flash-lite"]
+DEFAULT_MODELS = ["gemini-3.5-flash-lite", "gemini-3.1-flash-lite"]
 # DEFAULT_MODELS = ["gemini-3.1-flash-lite"]
 DEFAULT_EFFORT = "low"
 PROJECT_ID = os.getenv("PROJECT_ID")
@@ -231,12 +231,15 @@ def run_evaluation(output_file, repetitions, models, effort, queries, workers=5)
                 except Exception as re:
                     raw_record["raw_response_error"] = str(re)
                 
-                # Extract reference grounding chunks for reporting/analysis
+                # Extract reference grounding chunks and supports for reporting/analysis
                 grounding_chunks = []
+                grounding_supports = []
                 if response.candidates and response.candidates[0].grounding_metadata:
                     metadata = response.candidates[0].grounding_metadata
                     if metadata.grounding_chunks:
                         grounding_chunks = [chunk.model_dump() for chunk in metadata.grounding_chunks]
+                    if metadata.grounding_supports:
+                        grounding_supports = [support.model_dump() for support in metadata.grounding_supports]
                 record["grounding_chunks"] = grounding_chunks
                 
                 # Parse output places and run Stage B
@@ -255,27 +258,60 @@ def run_evaluation(output_file, repetitions, models, effort, queries, workers=5)
                     parsed_json = json.loads(response_text_clean)
                     places = parsed_json.get("places", [])
                     
-                    # Look up grounding chunk to find corresponding place_id by title similarity
+                    # Look up grounding chunk to find corresponding place_id using grounding supports as bridge
                     for place in places:
                         place_title = str(place.get("title") or "").strip()
                         grounded_place_id = None
                         if place_title:
+                            place_title_lower = place_title.lower()
+                            
+                            # Step 1: Find all grounding supports whose segment text contains the place title
+                            matching_chunk_indices = set()
+                            for support in grounding_supports:
+                                seg = support.get("segment", {})
+                                seg_text = (seg.get("text") or "").lower()
+                                if place_title_lower in seg_text:
+                                    indices = support.get("grounding_chunk_indices", [])
+                                    matching_chunk_indices.update(indices)
+                                    
+                            # Step 2: Out of the matching chunks, find the one that has the closest title match to place_title
                             best_score = 0.0
                             best_pid = None
-                            for chunk in grounding_chunks:
-                                maps_data = chunk.get("maps")
-                                if isinstance(maps_data, dict):
-                                    chunk_title = str(maps_data.get("title") or "").strip()
-                                    if chunk_title:
-                                        score = fuzz.token_sort_ratio(place_title.lower(), chunk_title.lower())
-                                        if score > best_score:
-                                            best_score = score
-                                            g_pid = maps_data.get("place_id", "")
-                                            if g_pid.startswith("places/"):
-                                                g_pid = g_pid[len("places/"):]
-                                            best_pid = g_pid
-                            if best_score >= 85.0:
+                            for c_idx in matching_chunk_indices:
+                                if c_idx < len(grounding_chunks):
+                                    chunk = grounding_chunks[c_idx]
+                                    maps_data = chunk.get("maps")
+                                    if isinstance(maps_data, dict):
+                                        chunk_title = str(maps_data.get("title") or "").strip()
+                                        if chunk_title:
+                                            score = fuzz.token_sort_ratio(place_title.lower(), chunk_title.lower())
+                                            if score > best_score:
+                                                best_score = score
+                                                g_pid = maps_data.get("place_id", "")
+                                                if g_pid.startswith("places/"):
+                                                    g_pid = g_pid[len("places/"):]
+                                                best_pid = g_pid
+                                                
+                            if best_score >= 70.0:
                                 grounded_place_id = best_pid
+                            else:
+                                # Fallback to global fuzzy title matching if support bridge failed
+                                best_score = 0.0
+                                best_pid = None
+                                for chunk in grounding_chunks:
+                                    maps_data = chunk.get("maps")
+                                    if isinstance(maps_data, dict):
+                                        chunk_title = str(maps_data.get("title") or "").strip()
+                                        if chunk_title:
+                                            score = fuzz.token_sort_ratio(place_title.lower(), chunk_title.lower())
+                                            if score > best_score:
+                                                best_score = score
+                                                g_pid = maps_data.get("place_id", "")
+                                                if g_pid.startswith("places/"):
+                                                    g_pid = g_pid[len("places/"):]
+                                                best_pid = g_pid
+                                if best_score >= 85.0:
+                                    grounded_place_id = best_pid
                         place["grounded_place_id"] = grounded_place_id
                     
                     # Update record with the enriched JSON structure

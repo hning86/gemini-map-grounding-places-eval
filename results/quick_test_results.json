@@ -1,80 +1,45 @@
 [
   {
-    "model": "gemini-3.1-flash-lite-preview",
+    "model": "gemini-3.5-flash-lite",
     "effort": "low",
     "query": "Best street food spots and street food markets in Hanoi",
     "iteration": 0,
-    "timestamp": 1782322570.020195,
+    "timestamp": 1784860511.285156,
     "success": true,
-    "latency_stage_a": 9.586306095123291,
-    "latency_stage_b": 1.434791088104248,
-    "latency_combined": 11.021097183227539,
+    "latency_stage_a": 4.4645161628723145,
+    "latency_stage_b": 0.4753091335296631,
+    "latency_combined": 4.9398252964019775,
     "response_text": {
+      "cited_text": "For experiencing authentic local flavors, Hàng Da Market offers a bustling local atmosphere within the Old Quarter. Another iconic marketplace rich in culinary culture is Đồng Xuân Market. To enjoy renowned local baguettes, Banh Mi 25 provides a fantastic street food experience.",
       "places": [
         {
-          "place_id": "ChIJu6N9h7v4NTER0fD3z8q5r1c",
-          "cid": "17004396853142544051",
+          "title": "Hàng Da Market",
+          "rating": "3.8",
+          "review_count": "3327",
+          "text": "Popular 3-story market stocking everything from apparel to traditional crafts to produce.",
+          "place_type": "Market",
+          "opening_hours": "Monday: 5:00 AM – 8:00 PM; Tuesday: 5:00 AM – 8:00 PM; Wednesday: 5:00 AM – 8:00 PM; Thursday: 5:00 AM – 8:00 PM; Friday: 5:00 AM – 8:00 PM; Saturday: 5:00 AM – 8:00 PM; Sunday: 5:00 AM – 8:00 PM",
+          "address": "P. Hàng Da, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam",
+          "grounded_place_id": "ChIJ28Sz_b2rNTERhG6JzGZN9y8"
+        },
+        {
+          "title": "Đồng Xuân Market",
+          "rating": "",
+          "review_count": "",
+          "text": "Traditional market building in the Old Quarter.",
+          "place_type": "Building",
+          "address": "Chợ Đồng Xuân, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 100000, Vietnam",
+          "grounded_place_id": "ChIJh0TC5rirNTER5hfy54P03tk"
+        },
+        {
           "title": "Banh Mi 25",
-          "rating": "4.4",
-          "review_count": "16821",
-          "text": "Extensive sandwich menu offered at a popular stall with a simple seating area across the road [1.1.2].",
+          "rating": "4.5",
+          "review_count": "16997",
+          "text": "Extensive sandwich menu offered at a popular stall with a simple seating area across the road.",
           "place_type": "Sandwich Shop",
-          "opening_hours": "7:00 AM–9:00 PM",
-          "entry_price": "Inexpensive",
+          "opening_hours": "Monday: 7:00 AM – 9:00 PM; Tuesday: 7:00 AM – 9:00 PM; Wednesday: 7:00 AM – 9:00 PM; Thursday: 7:00 AM – 9:00 PM; Friday: 7:00 AM – 9:00 PM; Saturday: 7:00 AM – 9:00 PM; Sunday: 7:00 AM – 9:00 PM",
           "address": "25 P. Hàng Cá, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 100000, Vietnam",
           "grounded_place_id": "ChIJtRY3u3SrNTERs95UQ9jA--s"
-        },
-        {
-          "place_id": "ChIJT7O73s34NTERyB4S3gV-L38",
-          "cid": "6436514622737634446",
-          "title": "Hanoi Old Quarter",
-          "rating": "4.6",
-          "review_count": "9868",
-          "text": "Historic trading district with a night market, narrow lanes, food hawkers & hotchpotch tube houses.",
-          "place_type": "Tourist Attraction",
-          "opening_hours": "Open 24 hours",
-          "entry_price": "N/A",
-          "address": "P. Hàng Ngang, Hàng Đào, Hoàn Kiếm, Hà Nội 100000, Vietnam",
-          "grounded_place_id": "ChIJp0o4Er6rNTERjlTif_IXU1k"
-        },
-        {
-          "place_id": "ChIJ1Z1fK5j4NTERXjH5W6wL988",
-          "cid": "15882823924867143919",
-          "title": "Hanoi Food Culture Restaurant & Cooking Class",
-          "rating": "4.9",
-          "review_count": "4695",
-          "text": "A highly-rated Vietnamese restaurant that offers both dining and cooking classes, perfect for experiencing local flavors.",
-          "place_type": "Vietnamese Restaurant",
-          "opening_hours": "10:00 AM–10:00 PM",
-          "entry_price": "N/A",
-          "address": "60 Ng. Phất Lộc, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 100000, Vietnam",
-          "grounded_place_id": "ChIJBc_8ksCrNTER7xjIdzUga9w"
-        },
-        {
-          "place_id": "ChIJQ9o1c8v4NTER7uE2t0oD528",
-          "cid": "840573277241490588",
-          "title": "Gánh Hà Nội",
-          "rating": "4.9",
-          "review_count": "10227",
-          "text": "A popular Vietnamese restaurant offering a wide range of local dishes with both indoor and outdoor seating options.",
-          "place_type": "Vietnamese Restaurant",
-          "opening_hours": "10:00 AM–11:00 PM",
-          "entry_price": "Moderate",
-          "address": "115 P. Hàng Buồm, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam",
-          "grounded_place_id": "ChIJi-Y8nu2rNTERnDyqLfFQqgs"
-        },
-        {
-          "place_id": "ChIJb7M_eLn4NTERrPzN59Y9298",
-          "cid": "8623459604284119835",
-          "title": "Banh Mi MAMA",
-          "rating": "4.6",
-          "review_count": "471",
-          "text": "A specialized sandwich spot in the Old Quarter providing takeout, delivery, and dine-in options.",
-          "place_type": "Restaurant",
-          "opening_hours": "8:00 AM–10:00 PM",
-          "entry_price": "N/A",
-          "address": "2 P. Nguyễn Siêu, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 100000, Vietnam",
-          "grounded_place_id": "ChIJOQries6rNTERGxtJMNKurHc"
         }
       ]
     },
@@ -83,10 +48,10 @@
         "image": null,
         "maps": {
           "place_answer_sources": null,
-          "place_id": "places/ChIJp0o4Er6rNTERjlTif_IXU1k",
+          "place_id": "places/ChIJ28Sz_b2rNTERhG6JzGZN9y8",
           "text": null,
-          "title": "Hanoi Old Quarter",
-          "uri": "https://maps.google.com/?cid=6436514622737634446",
+          "title": "Hàng Da Market",
+          "uri": "https://maps.google.com/?cid=3456316342943706756",
           "route": null
         },
         "retrieved_context": null,
@@ -96,101 +61,10 @@
         "image": null,
         "maps": {
           "place_answer_sources": null,
-          "place_id": "places/ChIJBc_8ksCrNTER7xjIdzUga9w",
+          "place_id": "places/ChIJh0TC5rirNTER5hfy54P03tk",
           "text": null,
-          "title": "Hanoi Food Culture Restaurant & Cooking Class",
-          "uri": "https://maps.google.com/?cid=15882823924867143919",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJi-Y8nu2rNTERnDyqLfFQqgs",
-          "text": null,
-          "title": "Gánh Hà Nội",
-          "uri": "https://maps.google.com/?cid=840573277241490588",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJOQries6rNTERGxtJMNKurHc",
-          "text": null,
-          "title": "Banh Mi MAMA",
-          "uri": "https://maps.google.com/?cid=8623459604284119835",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJSy3R1jgvdTERE51Ytwqzbpo",
-          "text": null,
-          "title": "Ben Nghe Street Food",
-          "uri": "https://maps.google.com/?cid=11128028587886157075",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJOQries6rNTERGxtJMNKurHc",
-          "text": null,
-          "title": "Banh Mi MAMA",
-          "uri": "https://maps.google.com/?cid=8623459604284119835",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJi-Y8nu2rNTERnDyqLfFQqgs",
-          "text": null,
-          "title": "Gánh Hà Nội",
-          "uri": "https://maps.google.com/?cid=840573277241490588",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJI7yjpm6rNTERPwJ2SDWHQyo",
-          "text": null,
-          "title": "KIN Streetfood",
-          "uri": "https://maps.google.com/?cid=3045426435951297087",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJQXRe2MSrNTERSukaIBum2ag",
-          "text": null,
-          "title": "Bánh Bao Bình Mỗ",
-          "uri": "https://maps.google.com/?cid=12166938503751067978",
+          "title": "Đồng Xuân Market",
+          "uri": "https://maps.google.com/?cid=15699254198429423590",
           "route": null
         },
         "retrieved_context": null,
@@ -208,321 +82,99 @@
         },
         "retrieved_context": null,
         "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJf_4Ie7-rNTERqD8UU8HVyhA",
-          "text": null,
-          "title": "Hanoi Street Food Tour",
-          "uri": "https://maps.google.com/?cid=1210014476201639848",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJB9fPdQgvdTERisLWl4TFuK8",
-          "text": null,
-          "title": "Ho Thi Ky Food Street",
-          "uri": "https://maps.google.com/?cid=12662087525625938570",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJg2mwUcerNTER_O8PpTkWfHs",
-          "text": null,
-          "title": "Hanoi Street Food Restaurant",
-          "uri": "https://maps.google.com/?cid=8898011400615489532",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJLUlfw30OQjER32jWkRuwRAo",
-          "text": null,
-          "title": "Asia Travel Legend",
-          "uri": "https://maps.google.com/?cid=739909871252957407",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJuck1ZDerNTER-LdQk95DY0I",
-          "text": null,
-          "title": "Dong Xuan Alley",
-          "uri": "https://maps.google.com/?cid=4783741852430940152",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJKUiKP12rNTERBX8GGBOD0pY",
-          "text": null,
-          "title": "Locals' Food Street",
-          "uri": "https://maps.google.com/?cid=10867892968829124357",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJBc_8ksCrNTER7xjIdzUga9w",
-          "text": null,
-          "title": "Hanoi Food Culture Restaurant & Cooking Class",
-          "uri": "https://maps.google.com/?cid=15882823924867143919",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJLYzBHDCrNTERLojaNabotBM",
-          "text": null,
-          "title": "Boutique Hanoi Street Food Tours by Ms. Yummyface",
-          "uri": "https://maps.google.com/?cid=1420015583094278190",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJ3x01HQCrNTERtBCN9T55LnI",
-          "text": null,
-          "title": "Hanoi Weekend Night Market Start Point",
-          "uri": "https://maps.google.com/?cid=8227646880567070900",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJx3Cwo9erNTERUmIcTiSm4Ug",
-          "text": null,
-          "title": "Snail Streetfood",
-          "uri": "https://maps.google.com/?cid=5251661315350225490",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJRV0ewlurNTERMBh2Q6aUp7Y",
-          "text": null,
-          "title": "Outdoor store",
-          "uri": "https://maps.google.com/?cid=13161651877830858800",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJp0o4Er6rNTERjlTif_IXU1k",
-          "text": null,
-          "title": "Hanoi Old Quarter",
-          "uri": "https://maps.google.com/?cid=6436514622737634446",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJn7UAJkerNTERen9bKcHBA3c",
-          "text": null,
-          "title": "Hanoi-Oi Kitchen",
-          "uri": "https://maps.google.com/?cid=8575911150810267514",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
-      },
-      {
-        "image": null,
-        "maps": {
-          "place_answer_sources": null,
-          "place_id": "places/ChIJIa5NbACrNTERQXWu5etnRv4",
-          "text": null,
-          "title": "Night market start ( Friday to Sunday)",
-          "uri": "https://maps.google.com/?cid=18322446396871832897",
-          "route": null
-        },
-        "retrieved_context": null,
-        "web": null
       }
     ],
     "places_verified": [
       {
-        "title": "Banh Mi 25",
-        "generated_place_id": "ChIJu6N9h7v4NTER0fD3z8q5r1c",
-        "generated_cid": "17004396853142544051",
-        "grounded_place_id": "ChIJtRY3u3SrNTERs95UQ9jA--s",
-        "status_place_id": "NOT_FOUND",
+        "title": "Hàng Da Market",
+        "generated_place_id": "",
+        "generated_cid": "",
+        "grounded_place_id": "ChIJ28Sz_b2rNTERhG6JzGZN9y8",
+        "status_place_id": "MISSING",
         "status_grounded_place_id": "OK",
-        "status_cid": "OK",
+        "status_cid": "MISSING",
         "fuzzy_score_place_id": 0.0,
         "fuzzy_score_grounded_place_id": 100.0,
-        "fuzzy_score_cid": 100.0,
+        "fuzzy_score_cid": 0.0,
+        "retrieved_name_place_id": null,
+        "retrieved_name_grounded_place_id": "Hàng Da Market",
+        "retrieved_name_cid": null,
+        "retrieved_address_place_id": null,
+        "retrieved_address_grounded_place_id": "P. Hàng Da, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam",
+        "retrieved_address_cid": null,
+        "cid_resolved_place_id": null,
+        "latency": 0.47455906867980957,
+        "verified_place_id": false,
+        "verified_grounded_place_id": true,
+        "verified_cid": false,
+        "verified": true,
+        "matching_ids": false
+      },
+      {
+        "title": "Đồng Xuân Market",
+        "generated_place_id": "",
+        "generated_cid": "",
+        "grounded_place_id": "ChIJh0TC5rirNTER5hfy54P03tk",
+        "status_place_id": "MISSING",
+        "status_grounded_place_id": "OK",
+        "status_cid": "MISSING",
+        "fuzzy_score_place_id": 0.0,
+        "fuzzy_score_grounded_place_id": 100.0,
+        "fuzzy_score_cid": 0.0,
+        "retrieved_name_place_id": null,
+        "retrieved_name_grounded_place_id": "Đồng Xuân Market",
+        "retrieved_name_cid": null,
+        "retrieved_address_place_id": null,
+        "retrieved_address_grounded_place_id": "Chợ Đồng Xuân, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 100000, Vietnam",
+        "retrieved_address_cid": null,
+        "cid_resolved_place_id": null,
+        "latency": 0.31926608085632324,
+        "verified_place_id": false,
+        "verified_grounded_place_id": true,
+        "verified_cid": false,
+        "verified": true,
+        "matching_ids": false
+      },
+      {
+        "title": "Banh Mi 25",
+        "generated_place_id": "",
+        "generated_cid": "",
+        "grounded_place_id": "ChIJtRY3u3SrNTERs95UQ9jA--s",
+        "status_place_id": "MISSING",
+        "status_grounded_place_id": "OK",
+        "status_cid": "MISSING",
+        "fuzzy_score_place_id": 0.0,
+        "fuzzy_score_grounded_place_id": 100.0,
+        "fuzzy_score_cid": 0.0,
         "retrieved_name_place_id": null,
         "retrieved_name_grounded_place_id": "Banh Mi 25",
-        "retrieved_name_cid": "Banh Mi 25",
+        "retrieved_name_cid": null,
         "retrieved_address_place_id": null,
         "retrieved_address_grounded_place_id": "25 P. Hàng Cá, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 100000, Vietnam",
-        "retrieved_address_cid": "25 P. Hàng Cá, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 100000, Vietnam",
-        "cid_resolved_place_id": "ChIJtRY3u3SrNTERs95UQ9jA--s",
-        "latency": 1.431995153427124,
+        "retrieved_address_cid": null,
+        "cid_resolved_place_id": null,
+        "latency": 0.4725356101989746,
         "verified_place_id": false,
         "verified_grounded_place_id": true,
-        "verified_cid": true,
+        "verified_cid": false,
         "verified": true,
-        "matching_ids": false,
-        "error_message_place_id": "Invalid or stale Place ID."
-      },
-      {
-        "title": "Hanoi Old Quarter",
-        "generated_place_id": "ChIJT7O73s34NTERyB4S3gV-L38",
-        "generated_cid": "6436514622737634446",
-        "grounded_place_id": "ChIJp0o4Er6rNTERjlTif_IXU1k",
-        "status_place_id": "NOT_FOUND",
-        "status_grounded_place_id": "OK",
-        "status_cid": "OK",
-        "fuzzy_score_place_id": 0.0,
-        "fuzzy_score_grounded_place_id": 100.0,
-        "fuzzy_score_cid": 100.0,
-        "retrieved_name_place_id": null,
-        "retrieved_name_grounded_place_id": "Hanoi Old Quarter",
-        "retrieved_name_cid": "Hanoi Old Quarter",
-        "retrieved_address_place_id": null,
-        "retrieved_address_grounded_place_id": "P. Hàng Ngang, Hàng Đào, Hoàn Kiếm, Hà Nội 100000, Vietnam",
-        "retrieved_address_cid": "P. Hàng Ngang, Hàng Đào, Hoàn Kiếm, Hà Nội 100000, Vietnam",
-        "cid_resolved_place_id": "ChIJp0o4Er6rNTERjlTif_IXU1k",
-        "latency": 1.4287757873535156,
-        "verified_place_id": false,
-        "verified_grounded_place_id": true,
-        "verified_cid": true,
-        "verified": true,
-        "matching_ids": false,
-        "error_message_place_id": "Invalid or stale Place ID."
-      },
-      {
-        "title": "Hanoi Food Culture Restaurant & Cooking Class",
-        "generated_place_id": "ChIJ1Z1fK5j4NTERXjH5W6wL988",
-        "generated_cid": "15882823924867143919",
-        "grounded_place_id": "ChIJBc_8ksCrNTER7xjIdzUga9w",
-        "status_place_id": "NOT_FOUND",
-        "status_grounded_place_id": "OK",
-        "status_cid": "OK",
-        "fuzzy_score_place_id": 0.0,
-        "fuzzy_score_grounded_place_id": 100.0,
-        "fuzzy_score_cid": 100.0,
-        "retrieved_name_place_id": null,
-        "retrieved_name_grounded_place_id": "Hanoi Food Culture Restaurant & Cooking Class",
-        "retrieved_name_cid": "Hanoi Food Culture Restaurant & Cooking Class",
-        "retrieved_address_place_id": null,
-        "retrieved_address_grounded_place_id": "60 Ng. Phất Lộc, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 100000, Vietnam",
-        "retrieved_address_cid": "60 Ng. Phất Lộc, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 100000, Vietnam",
-        "cid_resolved_place_id": "ChIJBc_8ksCrNTER7xjIdzUga9w",
-        "latency": 1.4336159229278564,
-        "verified_place_id": false,
-        "verified_grounded_place_id": true,
-        "verified_cid": true,
-        "verified": true,
-        "matching_ids": false,
-        "error_message_place_id": "Invalid or stale Place ID."
-      },
-      {
-        "title": "Gánh Hà Nội",
-        "generated_place_id": "ChIJQ9o1c8v4NTER7uE2t0oD528",
-        "generated_cid": "840573277241490588",
-        "grounded_place_id": "ChIJi-Y8nu2rNTERnDyqLfFQqgs",
-        "status_place_id": "NOT_FOUND",
-        "status_grounded_place_id": "OK",
-        "status_cid": "OK",
-        "fuzzy_score_place_id": 0.0,
-        "fuzzy_score_grounded_place_id": 100.0,
-        "fuzzy_score_cid": 100.0,
-        "retrieved_name_place_id": null,
-        "retrieved_name_grounded_place_id": "Gánh Hà Nội",
-        "retrieved_name_cid": "Gánh Hà Nội",
-        "retrieved_address_place_id": null,
-        "retrieved_address_grounded_place_id": "115 P. Hàng Buồm, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam",
-        "retrieved_address_cid": "115 P. Hàng Buồm, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Vietnam",
-        "cid_resolved_place_id": "ChIJi-Y8nu2rNTERnDyqLfFQqgs",
-        "latency": 1.432549238204956,
-        "verified_place_id": false,
-        "verified_grounded_place_id": true,
-        "verified_cid": true,
-        "verified": true,
-        "matching_ids": false,
-        "error_message_place_id": "Invalid or stale Place ID."
-      },
-      {
-        "title": "Banh Mi MAMA",
-        "generated_place_id": "ChIJb7M_eLn4NTERrPzN59Y9298",
-        "generated_cid": "8623459604284119835",
-        "grounded_place_id": "ChIJOQries6rNTERGxtJMNKurHc",
-        "status_place_id": "NOT_FOUND",
-        "status_grounded_place_id": "OK",
-        "status_cid": "OK",
-        "fuzzy_score_place_id": 0.0,
-        "fuzzy_score_grounded_place_id": 100.0,
-        "fuzzy_score_cid": 100.0,
-        "retrieved_name_place_id": null,
-        "retrieved_name_grounded_place_id": "Banh Mi MAMA",
-        "retrieved_name_cid": "Banh Mi MAMA",
-        "retrieved_address_place_id": null,
-        "retrieved_address_grounded_place_id": "2 P. Nguyễn Siêu, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 100000, Vietnam",
-        "retrieved_address_cid": "2 P. Nguyễn Siêu, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 100000, Vietnam",
-        "cid_resolved_place_id": "ChIJOQries6rNTERGxtJMNKurHc",
-        "latency": 1.3105039596557617,
-        "verified_place_id": false,
-        "verified_grounded_place_id": true,
-        "verified_cid": true,
-        "verified": true,
-        "matching_ids": false,
-        "error_message_place_id": "Invalid or stale Place ID."
+        "matching_ids": false
       }
     ]
+  },
+  {
+    "model": "gemini-3.1-flash-lite",
+    "effort": "low",
+    "query": "Best street food spots and street food markets in Hanoi",
+    "iteration": 0,
+    "timestamp": 1784860511.285663,
+    "success": false,
+    "latency_stage_a": 55.9535391330719,
+    "latency_stage_b": 0.0,
+    "latency_combined": 0.0,
+    "response_text": null,
+    "grounding_chunks": [],
+    "places_verified": [],
+    "error": "Failed to parse generated JSON: Expecting value: line 1 column 1 (char 0). Raw response: None"
   }
 ]
